@@ -4,7 +4,6 @@
   "description": "This is a final project for the \"Software Development Frameworks\" course. Project summary: Collecting, translating and republishing news from some reliable websites.",
   "main": "backend/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js"
   },
@@ -26,6 +25,8 @@
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.4",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.1",
     "nodemon": "^2.0.22"
   },
   "bundleDependencies": [
