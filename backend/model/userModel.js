@@ -10,7 +10,7 @@ const userSchema = mongoose.Schema({
         require:[true,'Enter email'],
         unique:true
     },
-    passwored:{
+    password:{
         type:String,
         require: [true,'Please add password']
     },
