@@ -11,6 +11,7 @@ app.use('/uploads', express.static('uploads'))
 app.use(express.urlencoded({extended: false}))
 app.use('/api/users', require('./routes/userRouters.js'))
 app.use('/api/news', require('./routes/newsRouters.js'))
+app.use('/api/profile', require('./routes/profileRouters.js'))
 
 app.use(errorHandler)
 
