@@ -1,4 +1,4 @@
-//validate passwored
+//validate password
 module.exports=(password)=> {
     const minLength = 8;
     const maxLength = 50;

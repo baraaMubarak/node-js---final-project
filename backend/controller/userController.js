@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const { sendEmaile } = require('../core_modules/emailVerification')
+const { sendEmail } = require('../core_modules/emailVerification')
 const User = require('../model/userModel')
 const {  
     nameValidate,
@@ -16,16 +16,16 @@ const jwt = require('jsonwebtoken')
 //@desc    Register new user
 //@route   POST /api/users/signup
 //@access  Public 
-const regesturUser = asyncHandler(async (req, res) => {
+const registerUser = asyncHandler(async (req, res) => {
     const code = generateVerificationCode();
     isError = false;
-  const { name, email, passwored, phone } = req.body;
+  const { name, email, password, phone } = req.body;
       let details = {}
-      //validate naem
+      //validate name
       const nameError = nameValidate(!name?'':name);
       if(nameError){
         isError = true
-        details.naem = nameError;
+        details.name = nameError;
     }
     //validate email
     const emailError = emailValidate(!email?'':email)
@@ -34,11 +34,11 @@ const regesturUser = asyncHandler(async (req, res) => {
         details.emailError = emailError
     }
     console.log(details);
-    //validate passwored
-    const passwordError = passwordValidate(!passwored?'':passwored)
+    //validate password
+    const passwordError = passwordValidate(!password?'':password)
     if(passwordError){
         isError = true;
-        details.passwored = passwordError
+        details.password = passwordError
     }
     //validate Phone number
     const phoneError = phoneNumberValidate(!phone?'':phone)
@@ -77,9 +77,9 @@ const regesturUser = asyncHandler(async (req, res) => {
                 throw new Error('Phone number already exists')
             }
 
-            //hash passwored
+            //hash password
             const salt = await bcrypt.genSalt(10)
-            const hashedPasswored = await bcrypt.hash(passwored,salt)
+            const hashedPassword = await bcrypt.hash(password,salt)
             //create user
             const user =await User.create({
                 name : name,
@@ -87,13 +87,13 @@ const regesturUser = asyncHandler(async (req, res) => {
                 phone:phone,
                 verificationCode:code,
                 verifyEmail:false,
-                passwored:hashedPasswored,
-                image: {
-                    filename: req.file.originalname,
-                    contentType: req.file.mimetype,
-                    data: req.file.buffer,
-                    userImage:req.file.path
-                },
+                password:hashedPassword,
+                // image: {
+                //     filename: req.file.originalname,
+                //     contentType: req.file.mimetype,
+                //     data: req.file.buffer,
+                //     userImage:req.file.path
+                // },
             })
             if(!user){
                 res.status(400).json({
@@ -105,7 +105,7 @@ const regesturUser = asyncHandler(async (req, res) => {
                     });
                 throw new Error('Not successful')
             }
-            if(!await sendEmaile(user.email,code)){
+            if(!await sendEmail(user.email,code)){
                 res.status(400).json({
                     statusCode: 400,
                     message: "Not successful",
@@ -124,7 +124,7 @@ const regesturUser = asyncHandler(async (req, res) => {
                     email:user.email,
                     phone:user.phone,
                     verifyEmail:user.verifyEmail,
-                    image: 'http://localhost:8000/'+user.image.userImage,
+                    // image: 'http://localhost:8000/'+user.image.userImage,
                     token:generateToken(user._id),
                 }
                 }); 
@@ -137,14 +137,14 @@ const regesturUser = asyncHandler(async (req, res) => {
 //@access  Public 
 const loginUser = asyncHandler(async(req,res)=>{
     let details = {}
-    const { email , passwored } = req.body;
-    if((!email||!passwored)){
+    const { email , password } = req.body;
+    if((!email||!password)){
         let details = {}
         if(!email){
             details.email = 'Please enter your email.'
         }
-        if(!passwored){
-            details.passwored = 'Please enter your passwored.'
+        if(!password){
+            details.password = 'Please enter your password.'
         }
         res.status(400).json({
             statusCode: 400,
@@ -173,13 +173,13 @@ const loginUser = asyncHandler(async(req,res)=>{
             });
             throw new Error('User not found')
     }
-    if(!await bcrypt.compare(passwored,user.passwored)){
+    if(!await bcrypt.compare(password,user.password)){
         res.status(400).json({
             statusCode: 400,
-            message: 'Passwored not correct',
-            details: {user:"Passwored not correct"},
+            message: 'password not correct',
+            details: {user:"password not correct"},
             });
-            throw new Error('Passwored not correct')
+            throw new Error('password not correct')
     }
     res.status(201).json({
         _id: user.id,
@@ -187,7 +187,7 @@ const loginUser = asyncHandler(async(req,res)=>{
         email:user.email,
         phone:user.phone,
         verifyEmail:user.verifyEmail,
-        image: 'http://localhost:8000/'+user.image.userImage,
+        // image: 'http://localhost:8000/'+user.image.userImage,
         token:generateToken(user._id),
     })
 })
@@ -197,7 +197,7 @@ const loginUser = asyncHandler(async(req,res)=>{
 //@desc    Verify email user
 //@route   POST /api/users/verifyEmail
 //@access  Private 
-const emailVirivication = asyncHandler(
+const emailVerification = asyncHandler(
     async(req,res)=>{
         const { code } = req.body
         if(!code){
@@ -259,16 +259,16 @@ const emailVirivication = asyncHandler(
             email:user.email,
             phone:user.phone,
             verifyEmail:true,
-            image: 'http://localhost:8000/'+user.image.userImage,
+            // image: 'http://localhost:8000/'+user.image.userImage,
             token:generateToken(user._id),
         })
     }
 )
 
-//@desc    ReSend code to emaile
+//@desc    ReSend code to email
 //@route   GET /api/users/verifyEmail
 //@access  Private 
-const reSendEmailVirivication = asyncHandler(
+const reSendEmailVerification = asyncHandler(
     async(req,res)=>{
         const user = await User.findById(req.user._id)
      if(!user){
@@ -293,7 +293,7 @@ const reSendEmailVirivication = asyncHandler(
             });
         throw new Error('Not successfully Please try again.')
     }
-        if(!await sendEmaile(user.email,code)){
+        if(!await sendEmail(user.email,code)){
             res.status(400).json({
                 statusCode: 400,
                 message: "Not successful",
@@ -328,8 +328,8 @@ const generateVerificationCode = () => {
 
 
   module.exports = {
-    regesturUser,
+    registerUser,
     loginUser,
-    emailVirivication,
-    reSendEmailVirivication
+    emailVerification,
+    reSendEmailVerification
   }

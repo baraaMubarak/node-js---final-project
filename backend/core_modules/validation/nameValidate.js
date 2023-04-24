@@ -1,4 +1,4 @@
-//validate naem
+//validate name
 module.exports= (name)=>{
     const minLength = 8;
     const maxLength = 50;
