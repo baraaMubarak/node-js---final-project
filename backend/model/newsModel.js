@@ -24,14 +24,12 @@ const newsSchema = mongoose.Schema({
         require: [true, 'Enter date'],
     },
     author: {
-        type: Boolean,
+        type: String,
         require: [true, 'Enter verifyEmail'],
     },
     image: {
-        filename: {type: String},
-        contentType: {type: String},
-        userImage: {type: String},
-        data: {type: Buffer},
+        type: String,
+        require: [true, 'Enter image'],
     },
     comments: {
         type: Array,

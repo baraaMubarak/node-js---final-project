@@ -39,7 +39,6 @@ const getUserProfile = asyncHandler(async (req, res) => {
 const editProfile = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id)
     if (!user) {
-
         res.status(400).json({
             statusCode: 400,
             message: "User not exists",
