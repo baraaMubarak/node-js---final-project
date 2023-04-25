@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer');
+const Mailgen = require("mailgen");
 //send email
-module.exports = async (email,code)=>{
+module.exports = async (email,code,name)=>{
     let transport = nodemailer.createTransport({
         service:"gmail",
         auth:{
@@ -8,19 +9,62 @@ module.exports = async (email,code)=>{
             pass: 'mtxrgdaqdwhjasbc'
         },
     })
+
+// create a mailgen instance
+const mailGenerator = new Mailgen({
+  theme: "default",
+  product: {
+    name: "BNMA NEWS",
+    link: "BNMA NEWS",
+  },
+});
+
+// generate a verification code
+const verificationCode = code;
+
+// define the email template
+const emailStyle = {
+  body: {
+    name: name,
+    intro: "Welcome to BNMA NEWS!",
+    table: {
+      data: [
+        {
+          key: "Verification Code",
+          value: verificationCode,
+        },
+      ],
+      columns: {
+        customWidth: {
+          key: "20%",
+          value: "80%",
+        },
+        customAlignment: {
+          key: "left",
+          value: "right",
+        },
+      },
+    },
+    action: {
+      instructions: "Please enter this code on the verification page to complete the process.",
+      button: {
+        color: "#22BC66",
+        text: code,
+        link: code,
+      },
+    },
+    outro: "If you did not request this verification code, please ignore this email.",
+  },
+};
+
+// generate an HTML email with mailgen
+const emailBody = mailGenerator.generate(emailStyle);
+
     const mailOptions = {
         from: 'nassemmubarak@gmail.com',
         to: email,
         subject: 'bnmaNews - Registration Verification Code',
-        // text: `Subject: bnmaNews - Registration Verification Code\n\nDear jklasdmmm99@gmail.com,\n\nThank you for registering with bnmaNews! To complete your registration, please use the following verification code:\n\n<strong>${code}</strong>.\n\nPlease enter this code on our website within the next 30 minutes to complete your registration. If you did not initiate this registration or do not wish to register with bnmaNews, please ignore this email.\n\nThank you for choosing bnmaNews!\n\nSincerely,\nThe bnmaNews Team`,
-        html: `
-        <p>Dear jklasdmmm99@gmail.com,</p>
-        <p>Thank you for registering with bnmaNews! To complete your registration, please use the following verification code:</p>
-        <b style="color: yalue;background-color:powderblue;font-size:20px ">  ${code}  </b>
-        Please enter this code on our website within the next 30 minutes to complete your registration. If you did not initiate this registration or do not wish to register with bnmaNews, please ignore this email.
-        Thank you for choosing bnmaNews!
-        Sincerely,<br>The bnmaNews Team
-      `
+        html: emailBody,
     };
     
     try {

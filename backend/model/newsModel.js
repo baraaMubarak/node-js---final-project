@@ -24,14 +24,12 @@ const newsSchema = mongoose.Schema({
         require: [true, 'Enter date'],
     },
     author: {
-        type: Boolean,
+        type: String,
         require: [true, 'Enter verifyEmail'],
     },
     image: {
-        filename: {type: String},
-        contentType: {type: String},
-        userImage: {type: String},
-        data: {type: Buffer},
+        type: String,
+        require: [true, 'Enter image'],
     },
     comments: {
         type: Array,
@@ -42,6 +40,8 @@ const newsSchema = mongoose.Schema({
     timestamps: true
 })
 
-module.exports = mongoose.model('Policy', newsSchema)
-module.exports = mongoose.model('Economy', newsSchema)
-module.exports = mongoose.model('Sports', newsSchema)
+module.exports ={
+   Policy : mongoose.model('Policy', newsSchema),
+   Economy :  mongoose.model('Economy', newsSchema),
+   Sports :  mongoose.model('Sports', newsSchema)
+}

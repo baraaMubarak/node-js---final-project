@@ -105,7 +105,7 @@ const registerUser = asyncHandler(async (req, res) => {
                     });
                 throw new Error('Not successful')
             }
-            if(!await sendEmail(user.email,code)){
+            if(!await sendEmail(user.email,code,user.name)){
                 res.status(400).json({
                     statusCode: 400,
                     message: "Not successful",
@@ -293,7 +293,7 @@ const reSendEmailVerification = asyncHandler(
             });
         throw new Error('Not successfully Please try again.')
     }
-        if(!await sendEmail(user.email,code)){
+        if(!await sendEmail(user.email,code,user.name)){
             res.status(400).json({
                 statusCode: 400,
                 message: "Not successful",
