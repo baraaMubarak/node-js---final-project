@@ -1,6 +1,6 @@
 const cheerio = require("cheerio");
-const { translateText } = require("../translator");
-const { Policy } = require("../model/newsModel");
+const { translateText } = require("../../translator");
+const { Policy } = require("../../model/newsModel");
 newsWallaPolicyScraping = async (url) => {
   const response = await fetch(url);
   const body = await response.text();
