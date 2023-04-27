@@ -19,5 +19,10 @@ const urlSport = `https://sport1.maariv.co.il/world-soccer/`
 newsWallaSportScraping(urlSport)
 app.use(errorHandler)
 
+
 app.listen(port, () => console.log(`Server started on port http://localhost:${port}`))
 const {translateText} = require('./translator.js');
+
+
+
+

@@ -4,12 +4,17 @@ const {
     getPolicy,
     getEconomy,
     getHomeNews,
-    getSports
+    getSports,
+    scrapePolicy,
+    scrapeSport
 } = require('../controller/newsController')
 
 router.get('/policy', getPolicy)
 router.get('/economy', getEconomy)
 router.get('/sport', getSports)
 router.get('/home', getHomeNews)
+
+router.post('/policy', scrapePolicy)
+router.post('/sport', scrapeSport)
 
 module.exports = router
