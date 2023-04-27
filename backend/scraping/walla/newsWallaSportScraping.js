@@ -1,5 +1,5 @@
 const cheerio = require('cheerio')
-const { Sports } = require('../model/newsModel')
+const { Sports } = require('../../model/newsModel')
 
 const newsWallaSportScraping = async(url)=>{
     const response = await fetch(url)

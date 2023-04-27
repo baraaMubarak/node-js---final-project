@@ -7,17 +7,17 @@ const getPolicy = (req, res) => {
 }
 const getEconomy = (req, res) => {
     res.send({
-        message:'Economy'
+        message: 'Economy'
     })
 }
 const getSports = (req, res) => {
     res.send({
-        message:'Sports'
+        message: 'Sports'
     })
 }
 const getHomeNews = (req, res) => {
     res.send({
-        message:'Home'
+        message: 'Home'
     })
 }
 const scrapePolicy = async (req, res) => {
