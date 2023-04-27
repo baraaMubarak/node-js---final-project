@@ -25,7 +25,8 @@ const getAljazeraNews = async (url, type) => {
                             link: link,
                             Comment: [],
                             author: 'aljazera.net',
-                            details: data.details
+                            details: data.details,
+                            type:'policy'
                         })
                     })
                 }
@@ -41,7 +42,8 @@ const getAljazeraNews = async (url, type) => {
                             link: link,
                             Comment: [],
                             author: 'aljazera.net',
-                            details: data.details
+                            details: data.details,
+                            type:'economy'
                         })
                     })
                 }
@@ -57,7 +59,8 @@ const getAljazeraNews = async (url, type) => {
                             link: link,
                             Comment: [],
                             author: 'aljazera.net',
-                            details: data.details
+                            details: data.details,
+                            economy:'sport'
                         })
                     })
                 }

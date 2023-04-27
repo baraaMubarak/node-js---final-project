@@ -34,13 +34,13 @@ async function N12(type) {
         });
 
         console.log('e')
-        // console.log(`-----------------${i}`)
-        // console.log(`Header: ${title}`);
-        // console.log(`Body: ${body}`);
-        // console.log(`Details: ${details}`);
-        // console.log(`Date: ${date}`);
-        // console.log(`Image URL: ${imageUrl}`);
-        // console.log(`Link: ${websiteLink + link}`);
+        console.log(`-----------------${i}`)
+        console.log(`Header: ${title}`);
+        console.log(`Body: ${body}`);
+        console.log(`Details: ${details}`);
+        console.log(`Date: ${date}`);
+        console.log(`Image URL: ${imageUrl}`);
+        console.log(`Link: ${websiteLink + link}`);
         const news = {
             title,
             body,
@@ -48,7 +48,8 @@ async function N12(type) {
             link: websiteLink+ link,
             date,
             author: "N12",
-            image: imageUrl
+            image: imageUrl,
+            type:type
         }
         if(type === 'policy') {
             const {Policy} = require('../model/newsModel');
