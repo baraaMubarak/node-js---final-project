@@ -4,6 +4,7 @@ const {  newsAlAqsaPolicyScraping } = require('../scraping/al-aqsa/newsAlAqsaPol
 const { newsWallaPolicyScraping } = require('../scraping/walla/newsWallaPolicyScraping')
 const { newsWallaSportScraping } = require('../scraping/walla/newsWallaSportScraping')
 const { getAljazeraNews } = require('../scraping/aljazera/newsAljazeraScraping')
+const { newsAlbyanEconomyScraping } = require('../scraping/albyan/albyanEconomy')
 
 
 // @desc  Get Policy NEWS
@@ -95,6 +96,9 @@ const scrapeEconomy = async (req, res) => {
     
     //aljazera
     await getAljazeraNews('https://www.aljazeera.net/ebusiness/', 'economy')
+    //albyan
+    newsAlbyanEconomyScraping('https://www.albayan.ae/economy/arab')
+
 
     res.send({message: 'success'})
 }
