@@ -1,5 +1,10 @@
 const {Policy, Sports, Economy} = require('../model/newsModel')
 const {N12} = require("../scraping/newsN12");
+const {  newsAlAqsaPolicyScraping } = require('../scraping/al-aqsa/newsAlAqsaPolicyScraping')
+const { newsWallaPolicyScraping } = require('../scraping/walla/newsWallaPolicyScraping')
+const { newsWallaSportScraping } = require('../scraping/walla/newsWallaSportScraping')
+
+
 /*
 "قناة واللا العبرية"
 "N12"
@@ -44,6 +49,15 @@ const getHomeNews = async (req, res) => {
 }
 const scrapePolicy = async (req, res) => {
     await N12('policy');
+    // al-aqsa
+   await newsAlAqsaPolicyScraping('https://seraj.tv/category/6')
+   //walla
+    newsWallaPolicyScraping('https://www.maariv.co.il/news/politics')
+
+    //aljazera
+    const urlPolicyAljazera = 'https://www.aljazeera.net/politics/'
+    getAljazeraNews(urlPolicyAljazera, 'policy')
+
     res.send({message: 'success'})
 }
 
@@ -51,9 +65,20 @@ const scrapePolicy = async (req, res) => {
 const scrapeSport = async (req, res) => {
     await N12('sport');
     res.send({message: 'success'})
+    //walla
+    const urlSport = `https://sport1.maariv.co.il/world-soccer/`
+    newsWallaSportScraping(urlSport)
+    //aljazera
+    const urlSportAljazera = 'https://www.aljazeera.net/sport/'
+    getAljazeraNews(urlSportAljazera, 'sport')
 }
 
 const scrapeEconomy = async (req, res) => {
+    
+    //aljazera
+    const urlEconomicAljazera = 'https://www.aljazeera.net/ebusiness/'
+    getAljazeraNews(urlEconomicAljazera, 'economy')
+
     res.send({message: 'success'})
 }
 
