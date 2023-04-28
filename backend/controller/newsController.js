@@ -52,11 +52,10 @@ const scrapePolicy = async (req, res) => {
     // al-aqsa
    await newsAlAqsaPolicyScraping('https://seraj.tv/category/6')
    //walla
-    newsWallaPolicyScraping('https://www.maariv.co.il/news/politics')
+   await newsWallaPolicyScraping('https://www.maariv.co.il/news/politics')
 
     //aljazera
-    const urlPolicyAljazera = 'https://www.aljazeera.net/politics/'
-    getAljazeraNews(urlPolicyAljazera, 'policy')
+   await getAljazeraNews('https://www.aljazeera.net/politics/', 'policy')
 
     res.send({message: 'success'})
 }
@@ -64,20 +63,18 @@ const scrapePolicy = async (req, res) => {
 
 const scrapeSport = async (req, res) => {
     await N12('sport');
-    res.send({message: 'success'})
     //walla
-    const urlSport = `https://sport1.maariv.co.il/world-soccer/`
-    newsWallaSportScraping(urlSport)
+    await newsWallaSportScraping(`https://sport1.maariv.co.il/world-soccer/`)
     //aljazera
-    const urlSportAljazera = 'https://www.aljazeera.net/sport/'
-    getAljazeraNews(urlSportAljazera, 'sport')
+    await getAljazeraNews('https://www.aljazeera.net/sport/', 'sport')
+
+    res.send({message: 'success'})
 }
 
 const scrapeEconomy = async (req, res) => {
     
     //aljazera
-    const urlEconomicAljazera = 'https://www.aljazeera.net/ebusiness/'
-    getAljazeraNews(urlEconomicAljazera, 'economy')
+    await getAljazeraNews('https://www.aljazeera.net/ebusiness/', 'economy')
 
     res.send({message: 'success'})
 }
