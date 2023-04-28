@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const { protect } = require('../middleWare/authMiddleware')
 const {
     getPolicy,
     getEconomy,
@@ -15,8 +16,8 @@ router.get('/economy', getEconomy)
 router.get('/sport', getSports)
 router.get('/home', getHomeNews)
 
-router.post('/policy', scrapePolicy)
-router.post('/sport', scrapeSport)
-router.post('/economy', scrapeEconomy)
+router.post('/policy',protect, scrapePolicy)
+router.post('/sport',protect, scrapeSport)
+router.post('/economy',protect, scrapeEconomy)
 
 module.exports = router
