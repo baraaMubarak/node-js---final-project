@@ -3,6 +3,7 @@ const {N12} = require("../scraping/newsN12");
 const {  newsAlAqsaPolicyScraping } = require('../scraping/al-aqsa/newsAlAqsaPolicyScraping')
 const { newsWallaPolicyScraping } = require('../scraping/walla/newsWallaPolicyScraping')
 const { newsWallaSportScraping } = require('../scraping/walla/newsWallaSportScraping')
+const { getAljazeraNews } = require('../scraping/aljazera/newsAljazeraScraping')
 
 
 /*

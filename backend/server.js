@@ -13,11 +13,6 @@ app.use('/api/news', require('./routes/newsRouters.js'))
 app.use('/api/profile', require('./routes/profileRouters.js'))
 
 
-
-
-
-
-
 app.use(errorHandler)
 
 
