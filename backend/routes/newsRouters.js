@@ -6,7 +6,8 @@ const {
     getHomeNews,
     getSports,
     scrapePolicy,
-    scrapeSport
+    scrapeSport,
+    scrapeEconomy
 } = require('../controller/newsController')
 
 router.get('/policy', getPolicy)
@@ -16,5 +17,6 @@ router.get('/home', getHomeNews)
 
 router.post('/policy', scrapePolicy)
 router.post('/sport', scrapeSport)
+router.post('/economy', scrapeEconomy)
 
 module.exports = router

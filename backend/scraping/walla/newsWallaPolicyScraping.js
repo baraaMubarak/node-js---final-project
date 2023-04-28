@@ -27,6 +27,7 @@ newsWallaPolicyScraping = async (url) => {
           author: "قناة واللا العبرية",
           image: imageUrl,
           comments: [],
+          type:'policy'
         });
         // console.log(news);
       });

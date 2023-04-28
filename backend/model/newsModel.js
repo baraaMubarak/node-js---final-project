@@ -31,6 +31,10 @@ const newsSchema = mongoose.Schema({
         type: String,
         require: [true, 'Enter image'],
     },
+    type: {
+        type: String,
+        require: [true, 'Enter image'],
+    },
     comments: {
         type: Array,
     }

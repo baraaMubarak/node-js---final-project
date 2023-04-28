@@ -1,5 +1,7 @@
 const cheerio = require("cheerio")
 const { Policy, Economy, Sports } = require('../../model/newsModel')
+const {  getAljazeraNews } = require('./scraping/aljazera/newsAljazeraScraping')
+
 const getAljazeraNews = async (url, type) => {
     try {
         const response = await fetch(url)
@@ -25,7 +27,8 @@ const getAljazeraNews = async (url, type) => {
                             link: link,
                             Comment: [],
                             author: 'aljazera.net',
-                            details: data.details
+                            details: data.details,
+                            type:'policy'
                         })
                     })
                 }
@@ -41,7 +44,8 @@ const getAljazeraNews = async (url, type) => {
                             link: link,
                             Comment: [],
                             author: 'aljazera.net',
-                            details: data.details
+                            details: data.details,
+                            type:'economy'
                         })
                     })
                 }
@@ -57,7 +61,8 @@ const getAljazeraNews = async (url, type) => {
                             link: link,
                             Comment: [],
                             author: 'aljazera.net',
-                            details: data.details
+                            details: data.details,
+                            economy:'sport'
                         })
                     })
                 }

@@ -21,7 +21,8 @@ const newsWallaSportScraping = async(url)=>{
                     link:link,
                     author:'قناة واللا العبرية',
                     image:data.imageUrl,
-                    comments:[]
+                    comments:[],
+                    type:'sport'
                 })
             }
             
