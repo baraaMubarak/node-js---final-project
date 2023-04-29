@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { protect } = require('../../backend/middleWare/authMiddleware.js')
+const { protect } = require('./../middleWare/authMiddleware.js')
 const {
     getPolicy,
     getEconomy,
