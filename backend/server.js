@@ -4,6 +4,7 @@ const dotenv = require('dotenv').config()
 const connectDB = require('./config/db.js')
 const port = process.env.PORT || 5000
 const app = express()
+
 connectDB()
 app.use(express.json())
 app.use('/uploads', express.static('uploads'))
