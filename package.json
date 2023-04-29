@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "This is a final project for the \"Software Development Frameworks\" course. Project summary: Collecting, translating and republishing news from some reliable websites.",
   "main": "backend/server.js",
+  "type": "module",
   "scripts": {
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js"
