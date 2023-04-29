@@ -18,6 +18,7 @@ const newsSchema = mongoose.Schema({
     link: {
         type: String,
         require: [true, 'Enter link'],
+        unique: true
     },
     date: {
         type: String,

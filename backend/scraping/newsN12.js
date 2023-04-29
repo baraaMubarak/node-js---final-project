@@ -1,5 +1,4 @@
 const cheerio = require('cheerio');
-const {Policy} = require("../model/newsModel");
 
 async function N12(type) {
     let branch;
@@ -51,12 +50,19 @@ async function N12(type) {
             image: imageUrl,
             type:type
         }
+
         if(type === 'policy') {
             const {Policy} = require('../model/newsModel');
-            await Policy.create(news);
+            const newsExit = await Policy.findOne({ link });
+            if(!newsExit) {
+                await Policy.create(news);
+            }
         }else if(type === 'sport'){
             const {Sports} = require('../model/newsModel');
-            await Sports.create(news);
+            const newsExit = await Sports.findOne({ link });
+            if(!newsExit) {
+                await Sports.create(news);
+            }
         }
 
     });

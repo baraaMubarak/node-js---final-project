@@ -4,13 +4,12 @@ const { newsAlAqsaPolicyScraping } = require('../scraping/al-aqsa/newsAlAqsaPoli
 const { newsWallaPolicyScraping } = require('../scraping/walla/newsWallaPolicyScraping')
 const { newsWallaSportScraping } = require('../scraping/walla/newsWallaSportScraping')
 const { getAljazeraNews } = require('../scraping/aljazera/newsAljazeraScraping')
+const { newsAlbyanEconomyScraping } = require('../scraping/albyan/albyanEconomy')
 
 
-/*
-"قناة واللا العبرية"
-"N12"
-"aljazera.net"
- */
+// @desc  Get Policy NEWS
+// @route api/news/policy
+// @access Public
 const getPolicy = async (req, res) => {
     let n12 = await Policy.find({ author: "N12", }).limit(3);
     let walla = await Policy.find({ author: "قناة واللا العبرية", }).limit(3);
@@ -22,10 +21,18 @@ const getPolicy = async (req, res) => {
     n12.sort(() => Math.random() - 0.5);
     res.status(200).send(n12)
 }
+
+// @desc  Get Economy NEWS
+// @route api/news/economy
+// @access Public
 const getEconomy = async (req, res) => {
     let aljazera = await Economy.find({ author: "aljazera.net", }).limit(10);
     res.status(200).send(aljazera)
 }
+
+// @desc  Get Sport NEWS
+// @route api/news/sport
+// @access Public
 const getSports = async (req, res) => {
     let n12 = await Sports.find({ author: "N12", }).limit(3);
     let walla = await Sports.find({ author: "قناة واللا العبرية", }).limit(3);
@@ -37,6 +44,10 @@ const getSports = async (req, res) => {
     n12.sort(() => Math.random() - 0.5);
     res.status(200).send(n12)
 }
+
+// @desc  Get Home NEWS
+// @route api/news/home
+// @access Public
 const getHomeNews = async (req, res) => {
     let n12 = await Sports.find({ author: "N12", }).limit(3);
     let walla = await Policy.find({ author: "قناة واللا العبرية", }).limit(3);
@@ -48,6 +59,10 @@ const getHomeNews = async (req, res) => {
     n12.sort(() => Math.random() - 0.5);
     res.status(200).send(n12)
 }
+
+// @desc  Post Scrape Policy NEWS
+// @route api/news/policy
+// @access Private
 const scrapePolicy = async (req, res) => {
     await N12('policy');
     // al-aqsa
@@ -61,7 +76,9 @@ const scrapePolicy = async (req, res) => {
     res.send({ message: 'success' })
 }
 
-
+// @desc  Post Scrape Sport NEWS
+// @route api/news/sport
+// @access Private
 const scrapeSport = async (req, res) => {
     await N12('sport');
     //walla
@@ -72,10 +89,16 @@ const scrapeSport = async (req, res) => {
     res.send({ message: 'success' })
 }
 
+// @desc  Post Scrape Economy NEWS
+// @route api/news/economy
+// @access Private
 const scrapeEconomy = async (req, res) => {
 
     //aljazera
     await getAljazeraNews('https://www.aljazeera.net/ebusiness/', 'economy')
+    //albyan
+    newsAlbyanEconomyScraping('https://www.albayan.ae/economy/arab')
+
 
     res.send({ message: 'success' })
 }
