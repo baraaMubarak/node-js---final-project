@@ -14,13 +14,13 @@ const { protect } = require('../middleWare/authMiddleware')
 //         cb(null, filename.replaceAll(':','-'));
 //     }
 //   })
-  
+
 //   const upload = multer({ storage: storage })
 // ,upload.single('image')
-router.post('/signup',registerUser)
-router.post('/login',loginUser)
-router.post('/verifyEmail',protect,emailVerification)
-router.get('/verifyEmail',protect,reSendEmailVerification)
+router.post('/signup', registerUser)
+router.post('/login', loginUser)
+router.post('/verifyEmail', protect, emailVerification)
+router.get('/verifyEmail', protect, reSendEmailVerification)
 
 
-module.exports=router
+module.exports = router

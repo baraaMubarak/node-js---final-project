@@ -45,8 +45,8 @@ const newsSchema = mongoose.Schema({
     timestamps: true
 })
 
-module.exports ={
-   Policy : mongoose.model('Policy', newsSchema),
-   Economy :  mongoose.model('Economy', newsSchema),
-   Sports :  mongoose.model('Sports', newsSchema)
+module.exports = {
+    Policy: mongoose.model('Policy', newsSchema),
+    Economy: mongoose.model('Economy', newsSchema),
+    Sports: mongoose.model('Sports', newsSchema)
 }

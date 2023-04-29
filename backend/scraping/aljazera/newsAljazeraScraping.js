@@ -1,5 +1,9 @@
 const cheerio = require("cheerio")
 const { Policy, Economy, Sports } = require('../../model/newsModel')
+<<<<<<< HEAD
+
+=======
+>>>>>>> f4a7fc97c275a40d41117ad044b6f2d6df9dbddc
 
 const getAljazeraNews = async (url, type) => {
     try {
@@ -27,7 +31,7 @@ const getAljazeraNews = async (url, type) => {
                             Comment: [],
                             author: 'aljazera.net',
                             details: data.details,
-                            type:'policy'
+                            type: 'policy'
                         })
                     })
                 }
@@ -44,7 +48,7 @@ const getAljazeraNews = async (url, type) => {
                             Comment: [],
                             author: 'aljazera.net',
                             details: data.details,
-                            type:'economy'
+                            type: 'economy'
                         })
                     })
                 }
@@ -61,7 +65,7 @@ const getAljazeraNews = async (url, type) => {
                             Comment: [],
                             author: 'aljazera.net',
                             details: data.details,
-                            economy:'sport'
+                            economy: 'sport'
                         })
                     })
                 }
