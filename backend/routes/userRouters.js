@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const multer = require('multer');
 const { registerUser, loginUser, emailVerification, reSendEmailVerification } = require('../controller/userController')
-// const { protect } = require('../middleWare/authMiddle.js')
+const { protect } = require('../middleWare/authMiddle.js')
 
 // const storage = multer.diskStorage({
 //     destination: function (req, file, cb) {
@@ -17,10 +17,11 @@ const { registerUser, loginUser, emailVerification, reSendEmailVerification } = 
 
 //   const upload = multer({ storage: storage })
 // ,upload.single('image')
+
 router.post('/signup', registerUser)
 router.post('/login', loginUser)
-// router.post('/verifyEmail', protect, emailVerification)
-// router.get('/verifyEmail', protect, reSendEmailVerification)
+router.post('/verifyEmail', protect, emailVerification)
+router.get('/verifyEmail', protect, reSendEmailVerification)
 
 
 module.exports = router
