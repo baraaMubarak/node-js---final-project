@@ -1,5 +1,5 @@
 const cheerio = require("cheerio");
-const { translateText } = require("../../translator");
+const translator = require("../../translator");
 const { Policy } = require("../../model/newsModel");
 newsWallaPolicyScraping = async (url) => {
   const response = await fetch(url);
@@ -16,8 +16,16 @@ newsWallaPolicyScraping = async (url) => {
       .text();
     const link = $(el).find("a").attr("href");
     const newsExit = await Policy.findOne({ link });
-    if (!newsExit) {
+    if (true) {
       await getDetailsNews(link).then(async (data) => {
+        // console.log('start translate news..')
+        // const t = await translator.translateText(title);
+        // console.log(t)
+        // const tb = await translator.translateText(data.textBody);
+        // console.log(tb)
+        // const d = await translator.translateText(data.details);
+        // console.log(d)
+        // console.log('end translate news....')
         await Policy.create({
           title: title,
           body: data.textBody,
@@ -29,13 +37,16 @@ newsWallaPolicyScraping = async (url) => {
           comments: [],
           type:'policy'
         });
-        // console.log(news);
+        // console.log('added  news. ...');
       });
     }
     // console.log(link);
   });
   // console.log(l);
 };
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 const getDetailsNews = async (url) => {
   const response = await fetch(url);
   const body = await response.text();
