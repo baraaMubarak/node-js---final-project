@@ -3,7 +3,7 @@ const router = express.Router()
 const { protect } = require('../middleWare/authMiddleware.js')
 const { getUserProfile, editProfile } = require('../controller/profileController')
 
-router.get('/getProfile', protect, getUserProfile)
-router.put('/editProfile', protect, editProfile)
+// router.get('/getProfile', protect, getUserProfile)
+// router.put('/editProfile', protect, editProfile)
 
 module.exports = router
