@@ -241,6 +241,7 @@ const editProfile = async (req, res) => {
             details.password = passwordError;
         }
     }
+    console.log('*----------------2-----',phone);
     if (phone) {
         const phoneError = phoneNumberValidate(phone)
         if (phoneError) {

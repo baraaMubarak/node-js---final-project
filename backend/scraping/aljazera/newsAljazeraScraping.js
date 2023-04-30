@@ -1,10 +1,5 @@
 const cheerio = require("cheerio")
-const { Policy, Economy, Sports } = require('../../model/newsModel')
-<<<<<<< HEAD
-
-=======
->>>>>>> f4a7fc97c275a40d41117ad044b6f2d6df9dbddc
-
+const { Policy, Economy, Sports } = require('../../model/newsModel')    
 const getAljazeraNews = async (url, type) => {
     try {
         const response = await fetch(url)
