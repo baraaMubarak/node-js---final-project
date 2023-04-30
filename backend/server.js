@@ -1,6 +1,6 @@
 const express = require('express')
 const {errorHandler}  = require('../backend/middleware/errorMiddleware.js')
-const {protect} = require('../backend/middleware/authMiddleware.js')
+const {protect} = require('./authMiddleware.js')
 const dotenv = require('dotenv').config()
 const connectDB = require('./config/db.js')
 const port = process.env.PORT || 5000
