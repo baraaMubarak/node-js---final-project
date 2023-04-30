@@ -33,14 +33,14 @@ async function N12(type) {
             details = $(el).find('article > section > p:not(:has(script)) ').text();
         });
 
-        console.log('e')
-        console.log(`-----------------${i}`)
-        console.log(`Header: ${title}`);
-        console.log(`Body: ${body}`);
-        console.log(`Details: ${details}`);
-        console.log(`Date: ${date}`);
-        console.log(`Image URL: ${imageUrl}`);
-        console.log(`Link: ${websiteLink + link}`);
+        // console.log('e')
+        // console.log(`-----------------${i}`)
+        // console.log(`Header: ${title}`);
+        // console.log(`Body: ${body}`);
+        // console.log(`Details: ${details}`);
+        // console.log(`Date: ${date}`);
+        // console.log(`Image URL: ${imageUrl}`);
+        // console.log(`Link: ${websiteLink + link}`);
         const news = {
             title,
             body,

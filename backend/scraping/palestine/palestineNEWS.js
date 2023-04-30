@@ -33,19 +33,19 @@ async function palestineNEWS(type) {
             }
         })
 
-        console.log('e')
-        console.log(`-----------------${i}`)
-        console.log(`Header: ${title}`);
-        // console.log(`Body: ${body}`);
-        console.log(`Details: ${details}`);
-        console.log(`Date: ${date}`);
-        console.log(`Image URL: ${imageUrl}`);
-        console.log(`Link: ${link}`);
+        // console.log('e')
+        // console.log(`-----------------${i}`)
+        // console.log(`Header: ${title}`);
+        // // console.log(`Body: ${body}`);
+        // console.log(`Details: ${details}`);
+        // console.log(`Date: ${date}`);
+        // console.log(`Image URL: ${imageUrl}`);
+        // console.log(`Link: ${link}`);
         const news = {
             title,
             body:details,
             details,
-            link: websiteLink+ link,
+            link: link,
             date,
             author: "قناة فلسطين",
             image: imageUrl,

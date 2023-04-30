@@ -6,8 +6,15 @@ const {newsWallaSportScraping} = require('../scraping/walla/newsWallaSportScrapi
 const {getAljazeraNews} = require('../scraping/aljazera/newsAljazeraScraping')
 const {newsAlbyanEconomyScraping} = require('../scraping/albyan/albyanEconomy')
 const {palestineNEWS} = require("../scraping/palestine/palestineNEWS");
-
-
+const {getElbaladNews} = require('../scraping/elbalad/newsElbaladScraping')
+/*
+//sport
+getElbaladNews('https://elbalad.news/category/5', 'sport')
+//policy
+getElbaladNews('https://elbalad.news/category/2', 'policy')
+//economy
+getElbaladNews('https://elbalad.news/category/6', 'economy')
+ */
 // @desc  Get Policy NEWS
 // @route api/news/policy
 // @access Public
@@ -18,6 +25,7 @@ const getPolicy = async (req, res) => {
     let aljazera = await Policy.find({author: "aljazera.net",}).limit(3);
     let alaqsa = await Policy.find({author: "قناة الأقصى",}).limit(3);
     let palestine = await Policy.find({author: "قناة فلسطين",}).limit(3);
+    let elbalad = await Policy.find({author: "elbalad.news",}).limit(3);
     // console.log(n12)
     for (let i = 0; i < 3; i++) {
         if(aljazera[i])
@@ -26,6 +34,9 @@ const getPolicy = async (req, res) => {
             news.push(alaqsa[i])
         if(palestine[i])
             news.push(palestine[i])
+        if(elbalad[i])
+            news.push(elbalad[i])
+
     }
     news.sort(() => Math.random() - 0.5);
     res.status(200).json(news)
@@ -39,6 +50,7 @@ const getEconomy = async (req, res) => {
     let aljazera = await Economy.find({author: "aljazera.net",}).limit(3);
     let palestine = await Economy.find({author: "قناة فلسطين",}).limit(3);
     let payan = await Economy.find({author: "قناة البيان",}).limit(3);
+    let elbalad = await Economy.find({author: "elbalad.news",}).limit(3);
     // console.log(n12)
     for (let i = 0; i < 3; i++) {
         if(aljazera[i])
@@ -47,6 +59,10 @@ const getEconomy = async (req, res) => {
             news.push(palestine[i])
         if(payan[i])
             news.push(payan[i])
+        if(palestine[i])
+            news.push(palestine[i])
+        if(elbalad[i])
+            news.push(elbalad[i])
     }
     news.sort(() => Math.random() - 0.5);
     res.status(200).json(news)
@@ -59,12 +75,15 @@ const getSports = async (req, res) => {
     let news = [];
     let aljazera = await Sports.find({author: "aljazera.net",}).limit(5);
     let palestine = await Sports.find({author: "قناة فلسطين",}).limit(5);
+    let elbalad = await Sports.find({author: "elbalad.news",}).limit(3);
     // console.log(n12)
     for (let i = 0; i < 5; i++) {
         if(aljazera[i])
             news.push(aljazera[i])
         if(palestine[i])
             news.push(palestine[i])
+        if(elbalad[i])
+            news.push(elbalad[i])
 
     }
     news.sort(() => Math.random() - 0.5);
@@ -82,6 +101,7 @@ const getHomeNews = async (req, res) => {
     let palestine = await Sports.find({author: "قناة فلسطين",}).limit(3);
     let albayan = await Economy.find({author: "قناة البيان",}).limit(3);
     let alaqsa = await Policy.find({author: "قناة الأقصى",}).limit(3);
+    let elbalad = await Sports.find({author: "elbalad.news",}).limit(3);
     // console.log(n12)
     for (let i = 0; i < 3; i++) {
         if(aljazera[i])
@@ -92,6 +112,8 @@ const getHomeNews = async (req, res) => {
             news.push(albayan[i])
         if(alaqsa[i])
             news.push(alaqsa[i])
+        if(elbalad[i])
+            news.push(elbalad[i])
     }
     news.sort(() => Math.random() - 0.5);
     res.status(200).json(news)
@@ -110,6 +132,8 @@ const scrapePolicy = async (req, res) => {
 
     //aljazera
     await getAljazeraNews('https://www.aljazeera.net/politics/', 'policy')
+     //elbalad
+    await getElbaladNews('https://elbalad.news/category/2', 'policy')
     // palestine
     await palestineNEWS('policy');
 
@@ -126,7 +150,7 @@ const scrapeSport = async (req, res) => {
     await newsWallaSportScraping(`https://sport1.maariv.co.il/world-soccer/`)
     //aljazera
     await getAljazeraNews('https://www.aljazeera.net/sport/', 'sport')
-
+    await getElbaladNews('https://elbalad.news/category/5', 'sport')
     //palestine
     await palestineNEWS('sport');
     res.send({message: 'success'})
@@ -144,6 +168,7 @@ const scrapeEconomy = async (req, res) => {
     //palestine
     await palestineNEWS('economy');
 
+    await  getElbaladNews('https://elbalad.news/category/6','economy')
     res.send({message: 'success'})
 }
 

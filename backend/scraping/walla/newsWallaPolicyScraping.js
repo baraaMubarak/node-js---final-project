@@ -16,7 +16,7 @@ newsWallaPolicyScraping = async (url) => {
       .text();
     const link = $(el).find("a").attr("href");
     const newsExit = await Policy.findOne({ link });
-    if (true) {
+    if (!newsExit) {
       await getDetailsNews(link).then(async (data) => {
         // console.log('start translate news..')
         // const t = await translator.translateText(title);
