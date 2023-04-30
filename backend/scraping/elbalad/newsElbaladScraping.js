@@ -30,6 +30,23 @@ const getElbaladNews = async (url, type) => {
                     })
                 })
             }
+        } else if (type == 'economy') {
+            const newsExit = await Economy.findOne({ link });
+            if (!newsExit) {
+                await getElbaladDetails(link).then(async (data) => {
+                    await Economy.create({
+                        title: title,
+                        body: body,
+                        date: date,
+                        imageUrl: imageUrl,
+                        link: link,
+                        Comment: [],
+                        author: 'elbalad.news',
+                        details: data.details,
+                        type: 'economy'
+                    })
+                })
+            }
         } else if (type == 'sport') {
             const newsExit = await Sports.findOne({ link });
             if (!newsExit) {
