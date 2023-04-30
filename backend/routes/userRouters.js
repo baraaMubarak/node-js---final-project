@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const multer = require('multer');
 const { registerUser, loginUser, emailVerification, reSendEmailVerification } = require('../controller/userController')
-const { protect } = require('../middleWare/authMiddle.js')
+const {protect} = require('../middleware/authMiddle.js')
 
 // const storage = multer.diskStorage({
 //     destination: function (req, file, cb) {
