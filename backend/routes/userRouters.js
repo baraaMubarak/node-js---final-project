@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const multer = require('multer');
 const { registerUser, loginUser, emailVerification, reSendEmailVerification } = require('../controller/userController')
-const { protect } = require('../middleWare/authMiddleware')
+const {protect} = require('../middleware/authMiddle.js')
 
 // const storage = multer.diskStorage({
 //     destination: function (req, file, cb) {
@@ -17,6 +17,7 @@ const { protect } = require('../middleWare/authMiddleware')
 
 //   const upload = multer({ storage: storage })
 // ,upload.single('image')
+
 router.post('/signup', registerUser)
 router.post('/login', loginUser)
 router.post('/verifyEmail', protect, emailVerification)
