@@ -9,12 +9,12 @@ const getPolicy = async (req, res) => {
     let news = [];
     // let newsN12 = await Policy.find({author: "newsN12",}).limit(3);
     // let walla = await Policy.find({author: "قناة واللا العبرية",}).limit(3);
-    let aljazera = await Policy.find({author: "قناة الجزيرة",}).limit(3);
-    let alaqsa = await Policy.find({author: "قناة الأقصى",}).limit(3);
-    let palestine = await Policy.find({author: "قناة فلسطين",}).limit(3);
-    let elbalad = await Policy.find({author: "قناة البلد",}).limit(3);
+    let aljazera = await Policy.find({author: "قناة الجزيرة",}).limit(10);
+    let alaqsa = await Policy.find({author: "قناة الأقصى",}).limit(10);
+    let palestine = await Policy.find({author: "قناة فلسطين",}).limit(10);
+    let elbalad = await Policy.find({author: "قناة البلد",}).limit(10);
     // console.log(newsN12)
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 10; i++) {
         if(aljazera[i])
             news.push(aljazera[i])
         if(alaqsa[i])
@@ -34,12 +34,12 @@ const getPolicy = async (req, res) => {
 // @access Public
 const getEconomy = async (req, res) => {
     let news = [];
-    let aljazera = await Economy.find({author: "قناة الجزيرة",}).limit(3);
-    let palestine = await Economy.find({author: "قناة فلسطين",}).limit(3);
-    let payan = await Economy.find({author: "قناة البيان",}).limit(3);
-    let elbalad = await Economy.find({author: "قناة البلد",}).limit(3);
+    let aljazera = await Economy.find({author: "قناة الجزيرة",}).limit(10);
+    let palestine = await Economy.find({author: "قناة فلسطين",}).limit(10);
+    let payan = await Economy.find({author: "قناة البيان",}).limit(10);
+    let elbalad = await Economy.find({author: "قناة البلد",}).limit(10);
     // console.log(newsN12)
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 10; i++) {
         if(aljazera[i])
             news.push(aljazera[i])
         if(palestine[i])
@@ -60,11 +60,11 @@ const getEconomy = async (req, res) => {
 // @access Public
 const getSports = async (req, res) => {
     let news = [];
-    let aljazera = await Sports.find({author: "قناة الجزيرة",}).limit(5);
-    let palestine = await Sports.find({author: "قناة فلسطين",}).limit(5);
-    let elbalad = await Sports.find({author: "قناة البلد",}).limit(3);
+    let aljazera = await Sports.find({author: "قناة الجزيرة",}).limit(10);
+    let palestine = await Sports.find({author: "قناة فلسطين",}).limit(10);
+    let elbalad = await Sports.find({author: "قناة البلد",}).limit(10);
     // console.log(newsN12)
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 10; i++) {
         if(aljazera[i])
             news.push(aljazera[i])
         if(palestine[i])
@@ -84,13 +84,13 @@ const getHomeNews = async (req, res) => {
     let news = [];
     // let newsN12 = await Sports.find({author: "newsN12",}).limit(3);
     // let walla = await Policy.find({author: "قناة واللا العبرية",}).limit(3);
-    let aljazera = await Policy.find({author: "قناة الجزيرة",}).limit(3);
-    let palestine = await Sports.find({author: "قناة فلسطين",}).limit(3);
-    let albayan = await Economy.find({author: "قناة البيان",}).limit(3);
-    let alaqsa = await Policy.find({author: "قناة الأقصى",}).limit(3);
-    let elbalad = await Sports.find({author: "قناة البلد",}).limit(3);
+    let aljazera = await Policy.find({author: "قناة الجزيرة",}).limit(10);
+    let palestine = await Sports.find({author: "قناة فلسطين",}).limit(10);
+    let albayan = await Economy.find({author: "قناة البيان",}).limit(10);
+    let alaqsa = await Policy.find({author: "قناة الأقصى",}).limit(10);
+    let elbalad = await Sports.find({author: "قناة البلد",}).limit(10);
     // console.log(newsN12)
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 10; i++) {
         if(aljazera[i])
             news.push(aljazera[i])
         if(palestine[i])
