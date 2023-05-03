@@ -8,6 +8,7 @@ const app = express()
 
 connectDB()
 // newsWallaPolicyScraping('https://www.maariv.co.il/news/politics')
+
 var cors = require('cors');
 app.use(cors());
 
