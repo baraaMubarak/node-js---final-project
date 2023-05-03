@@ -1,32 +1,19 @@
 const {Policy, Sports, Economy} = require('../model/newsModel')
-const {N12} = require("../scraping/N12/newsN12");
-const {newsAlAqsaPolicyScraping} = require('../scraping/al-aqsa/newsAlAqsaPolicyScraping')
-const {newsWallaPolicyScraping} = require('../scraping/walla/newsWallaPolicyScraping')
-const {newsWallaSportScraping} = require('../scraping/walla/newsWallaSportScraping')
-const {getAljazeraNews} = require('../scraping/aljazera/newsAljazeraScraping')
-const {newsAlbyanEconomyScraping} = require('../scraping/albyan/albyanEconomy')
-const {palestineNEWS} = require("../scraping/palestine/palestineNEWS");
-const {getElbaladNews} = require('../scraping/elbalad/newsElbaladScraping')
-/*
-//sport
-getElbaladNews('https://elbalad.news/category/5', 'sport')
-//policy
-getElbaladNews('https://elbalad.news/category/2', 'policy')
-//economy
-getElbaladNews('https://elbalad.news/category/6', 'economy')
- */
+// const {newsN12} = require("../scraping/newsN12/newsnewsN12");
+const newsScraping= require('../scraping')
+
 // @desc  Get Policy NEWS
 // @route api/news/policy
 // @access Public
 const getPolicy = async (req, res) => {
     let news = [];
-    // let n12 = await Policy.find({author: "N12",}).limit(3);
+    // let newsN12 = await Policy.find({author: "newsN12",}).limit(3);
     // let walla = await Policy.find({author: "قناة واللا العبرية",}).limit(3);
     let aljazera = await Policy.find({author: "aljazera.net",}).limit(3);
     let alaqsa = await Policy.find({author: "قناة الأقصى",}).limit(3);
     let palestine = await Policy.find({author: "قناة فلسطين",}).limit(3);
     let elbalad = await Policy.find({author: "elbalad.news",}).limit(3);
-    // console.log(n12)
+    // console.log(newsN12)
     for (let i = 0; i < 3; i++) {
         if(aljazera[i])
             news.push(aljazera[i])
@@ -51,7 +38,7 @@ const getEconomy = async (req, res) => {
     let palestine = await Economy.find({author: "قناة فلسطين",}).limit(3);
     let payan = await Economy.find({author: "قناة البيان",}).limit(3);
     let elbalad = await Economy.find({author: "elbalad.news",}).limit(3);
-    // console.log(n12)
+    // console.log(newsN12)
     for (let i = 0; i < 3; i++) {
         if(aljazera[i])
             news.push(aljazera[i])
@@ -76,7 +63,7 @@ const getSports = async (req, res) => {
     let aljazera = await Sports.find({author: "aljazera.net",}).limit(5);
     let palestine = await Sports.find({author: "قناة فلسطين",}).limit(5);
     let elbalad = await Sports.find({author: "elbalad.news",}).limit(3);
-    // console.log(n12)
+    // console.log(newsN12)
     for (let i = 0; i < 5; i++) {
         if(aljazera[i])
             news.push(aljazera[i])
@@ -95,14 +82,14 @@ const getSports = async (req, res) => {
 // @access Public
 const getHomeNews = async (req, res) => {
     let news = [];
-    // let n12 = await Sports.find({author: "N12",}).limit(3);
+    // let newsN12 = await Sports.find({author: "newsN12",}).limit(3);
     // let walla = await Policy.find({author: "قناة واللا العبرية",}).limit(3);
     let aljazera = await Policy.find({author: "aljazera.net",}).limit(3);
     let palestine = await Sports.find({author: "قناة فلسطين",}).limit(3);
     let albayan = await Economy.find({author: "قناة البيان",}).limit(3);
     let alaqsa = await Policy.find({author: "قناة الأقصى",}).limit(3);
     let elbalad = await Sports.find({author: "elbalad.news",}).limit(3);
-    // console.log(n12)
+    // console.log(newsN12)
     for (let i = 0; i < 3; i++) {
         if(aljazera[i])
             news.push(aljazera[i])
@@ -123,19 +110,19 @@ const getHomeNews = async (req, res) => {
 // @route api/news/policy
 // @access Private
 const scrapePolicy = async (req, res) => {
-    // N12
-    await N12('policy');
+    // newsN12
+    await newsScraping.newsN12('policy');
     // al-aqsa
-    await newsAlAqsaPolicyScraping('https://seraj.tv/category/6')
+    await newsScraping.alAqsaPolicy('https://seraj.tv/category/6')
     //walla
-    await newsWallaPolicyScraping('https://www.maariv.co.il/news/politics')
+    await newsScraping.walla.newsWallaPolicyScraping('https://www.maariv.co.il/news/politics')
 
     //aljazera
-    await getAljazeraNews('https://www.aljazeera.net/politics/', 'policy')
+    await newsScraping.aljazera('https://www.aljazeera.net/politics/', 'policy')
      //elbalad
-    await getElbaladNews('https://elbalad.news/category/2', 'policy')
+    await newsScraping.elbalad('https://elbalad.news/category/2', 'policy')
     // palestine
-    await palestineNEWS('policy');
+    await newsScraping.palestine('policy');
 
     res.send({message: 'success'})
 }
@@ -144,15 +131,15 @@ const scrapePolicy = async (req, res) => {
 // @route api/news/sport
 // @access Private
 const scrapeSport = async (req, res) => {
-    //N12
-    await N12('sport');
+    //newsN12
+    await newsScraping.newsN12('sport');
     //walla
-    await newsWallaSportScraping(`https://sport1.maariv.co.il/world-soccer/`)
+    await newsScraping.walla.newsWallaSportScraping(`https://sport1.maariv.co.il/world-soccer/`)
     //aljazera
-    await getAljazeraNews('https://www.aljazeera.net/sport/', 'sport')
-    await getElbaladNews('https://elbalad.news/category/5', 'sport')
+    await newsScraping.aljazera('https://www.aljazeera.net/sport/', 'sport')
+    await newsScraping.elbalad('https://elbalad.news/category/5', 'sport')
     //palestine
-    await palestineNEWS('sport');
+    await newsScraping.palestine('sport');
     res.send({message: 'success'})
 }
 
@@ -162,13 +149,13 @@ const scrapeSport = async (req, res) => {
 const scrapeEconomy = async (req, res) => {
 
     //aljazera
-    await getAljazeraNews('https://www.aljazeera.net/ebusiness/', 'economy')
+    await newsScraping.aljazera('https://www.aljazeera.net/ebusiness/', 'economy')
     //albyan
-    newsAlbyanEconomyScraping('https://www.albayan.ae/economy/arab')
+    await newsScraping.albyanEconomy('https://www.albayan.ae/economy/arab')
     //palestine
-    await palestineNEWS('economy');
+    await newsScraping.palestine('economy');
 
-    await  getElbaladNews('https://elbalad.news/category/6','economy')
+    await  newsScraping.elbalad('https://elbalad.news/category/6','economy')
     res.send({message: 'success'})
 }
 

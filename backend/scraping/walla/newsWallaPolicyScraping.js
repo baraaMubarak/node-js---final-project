@@ -1,7 +1,8 @@
 const cheerio = require("cheerio");
 const translator = require("../../translator");
 const { Policy } = require("../../model/newsModel");
-newsWallaPolicyScraping = async (url) => {
+const { models } = require("mongoose");
+module.exports = async (url) => {
 // console.log( await translateText(`we first`));
   const response = await fetch(url);
   const body = await response.text();
@@ -16,6 +17,9 @@ newsWallaPolicyScraping = async (url) => {
       )
       .text();
     const link = $(el).find("a").attr("href");
+    if(!link){
+      return;
+  }
     const newsExit = await Policy.findOne({ link });
    
     if (!newsExit) {
@@ -68,6 +72,6 @@ const getDetailsNews = async (url) => {
   };
 };
 
-module.exports = {
-  newsWallaPolicyScraping,
-};
+// module.exports = {
+//   newsWallaPolicyScraping,
+// };

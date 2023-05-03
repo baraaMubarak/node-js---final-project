@@ -1,7 +1,7 @@
 const cheerio = require('cheerio');
 // const translateText = require('../translator')
 
-async function N12(type) {
+module.exports =  N12=async(type) =>{
     let branch;
     if(type === 'policy'){
         branch = "/news-politics?partner=NewsNavBar";
@@ -19,6 +19,9 @@ async function N12(type) {
     $('.grid-ordering > li').map(async (i, el) => {
         var title = $(el).find('a').text();
         const link = $(el).find('a').attr('href');
+        if(!link){
+            return;
+        }
         var body = $(el).find('span > a').text();
         const date = $(el).find('small').text();
         const imageUrl = $(el).find('img').attr('src');
@@ -70,7 +73,7 @@ async function N12(type) {
 }
 
 
-module.exports = {N12};
+// module.exports = N12;
 
 
 

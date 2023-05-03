@@ -1,13 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const User = require('../model/userModel')
 const mongoose = require('mongoose')
-const Joi = require('joi');
-const {
-    nameValidate,
-    emailValidate,
-    passwordValidate,
-    phoneNumberValidate
-} = require('../core_modules/validation')
+const validation = require('../core_modules/validation')
 const bcrypt = require('bcryptjs')
 
 
@@ -221,21 +215,21 @@ const editProfile = async (req, res) => {
     const details = {};
     let isError = false;
     if (name) {
-        const nameError = nameValidate(name);
+        const nameError = validation.nameValidate(name);
         if (nameError) {
             isError = true;
             details.name = nameError;
         }
     }
     if (email) {
-        const emailError = emailValidate(email)
+        const emailError = validation.emailValidate(email)
         if (emailError) {
             isError = true;
             details.email = emailError;
         }
     }
     if (password) {
-        const passwordError = passwordValidate(password)
+        const passwordError = validation.passwordValidate(password)
         if (passwordError) {
             isError = true;
             details.password = passwordError;
@@ -243,7 +237,7 @@ const editProfile = async (req, res) => {
     }
     console.log('*----------------2-----',phone);
     if (phone) {
-        const phoneError = phoneNumberValidate(phone)
+        const phoneError = validation.phoneNumberValidate(phone)
         if (phoneError) {
             isError = true;
             details.phone = phoneError;

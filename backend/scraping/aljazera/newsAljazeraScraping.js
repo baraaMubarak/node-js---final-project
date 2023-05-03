@@ -1,7 +1,7 @@
 const cheerio = require("cheerio")
 const { Policy, Economy, Sports } = require('../../model/newsModel')    
 
-const getAljazeraNews = async (url, type) => {
+module.exports = async (url, type) => {
     try {
         const response = await fetch(url)
         const body = await response.text()
@@ -13,7 +13,9 @@ const getAljazeraNews = async (url, type) => {
             const date = $(el).find('.screen-reader-text').text()
             const imageUrl = url + $(el).find('.gc__image ').attr('src')
             const link = url + $(el).find('.u-clickable-card__link').attr('href')
-
+            if(!link){
+                return;
+            }
             if (type == 'policy') {
                 const newsExit = await Policy.findOne({ link });
                 if (!newsExit) {
@@ -88,6 +90,6 @@ const getDetailsNews = async (url) => {
     return { details: details }
 }
 
-module.exports = {
-    getAljazeraNews
-}
+// module.exports = {
+//     getAljazeraNews
+// }

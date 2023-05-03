@@ -1,13 +1,16 @@
 const cheerio = require("cheerio")
 const { Policy } = require("../../model/newsModel");
 
-newsAlAqsaPolicyScraping = async(url)=>{
+module.exports = async(url)=>{
     const response = await fetch(url)
     const body = await response.text()
     const $ = cheerio.load(body)
     $('.category .item').map(async(index,el)=>{
        const title = $(el).find('.title').text()
        const link = $(el).find('.eff').attr('href')
+       if(!link){
+        return;
+       }
        const imageUrl = $(el).find('.thumb a img').attr('src')
     const newsExit = await Policy.findOne({ link });
     if (!newsExit) {
@@ -43,4 +46,4 @@ const getDetailsNews = async (url) => {
       textBody: textBody,
     };
   };
-  module.exports = {newsAlAqsaPolicyScraping}
+  // module.exports = {newsAlAqsaPolicyScraping}

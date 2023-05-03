@@ -23,15 +23,6 @@ class Translator {
     }
 
 
-class Translator {
-    constructor() {
-        if (!instance) {
-            instance = this;
-        }
-
-        return instance;
-    }
-
 
     async translateText(text) {
         await this.delay(1000)

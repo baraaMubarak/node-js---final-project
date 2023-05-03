@@ -1,13 +1,16 @@
 const cheerio = require('cheerio');
 const { Economy } = require("../../model/newsModel");
 
-newsAlbyanEconomyScraping = async(url)=>{
+module.exports = async(url)=>{
     const response = await fetch(url)
     const body = await response.text()
     const $ = cheerio.load(body)
   $('ul li article').map(async(index,el)=>{
     const title = $(el).find('article .text h3 a').text()
     const link = $(el).find('article .text h3 a').attr('href')
+    if(!link){
+      return;
+  }
     const newsExit = await Economy.findOne({ link });
     if (!newsExit) {
       await getDetailsNews(link).then(async (data) => {
@@ -44,4 +47,4 @@ const getDetailsNews = async (url) => {
     textBody: textBody,
   };
 }
-module.exports = {newsAlbyanEconomyScraping}
+// module.exports = {newsAlbyanEconomyScraping}

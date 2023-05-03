@@ -1,8 +1,11 @@
 const cheerio = require('cheerio');
 const {Policy, Sports} = require("../../model/newsModel");
 // const translateText = require('../translator')
+const asyncHandler = require("express-async-handler");
 
-async function palestineNEWS(type) {
+
+module.exports =  palestineNEWS = async(type) => {
+   try {
     let branch;
     if(type === 'policy'){
         branch = "/political-news";
@@ -20,6 +23,10 @@ async function palestineNEWS(type) {
         const link = $(el).find('h3 > a' ).attr('href')
         const title = $(el).find('h3 > a' ).text()
         const imageUrl = $(el).find('img' ).attr('src')
+        console.log('---------------------',link);
+        if(!link){
+            return;
+        }
         const response2 = await fetch(link)
         const body2 = await response2.text();
         const $2 = cheerio.load(body2)
@@ -53,13 +60,11 @@ async function palestineNEWS(type) {
         }
 
         if(type === 'policy') {
-            const {Policy} = require('../../model/newsModel');
             const newsExit = await Policy.findOne({ link });
             if(!newsExit) {
                 await Policy.create(news);
             }
         }else if(type === 'sport'){
-            const {Sports} = require('../../model/newsModel');
             const newsExit = await Sports.findOne({ link });
             if(!newsExit) {
                 await Sports.create(news);
@@ -73,7 +78,10 @@ async function palestineNEWS(type) {
         }
 
     });
+   } catch (error) {
+    
+   }
 }
 
 
-module.exports = {palestineNEWS};
+// module.exports = {palestineNEWS};

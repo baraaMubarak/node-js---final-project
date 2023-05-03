@@ -1,13 +1,16 @@
 const cheerio = require('cheerio')
 const { Sports } = require('../../model/newsModel')
 
-const newsWallaSportScraping = async(url)=>{
+module.exports = async(url)=>{
     const response = await fetch(url)
     const body = await response.text()
     const $ = cheerio.load(body)
 
     $('.post-card').map(async(index,el)=>{
         const link = $(el).find('a').attr('href')
+        if(!link){
+            return;
+        }
         const title = $(el).find('.row .title-post h3').text()
         const body = $(el).find('.row .excerpt-post p').text()
         await getDetailsNews(link).then(async(data) =>{
@@ -45,7 +48,7 @@ const getDetailsNews = async(url)=>{
    }
 
 }
-module.exports = {
-    newsWallaSportScraping
-}
+// module.exports = {
+//     newsWallaSportScraping
+// }
 // getDetailsNews('https://sport1.maariv.co.il/world-soccer/premier-league/article/1091494/');

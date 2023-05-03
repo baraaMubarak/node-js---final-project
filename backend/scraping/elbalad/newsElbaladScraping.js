@@ -1,7 +1,7 @@
 const cheerio = require('cheerio')
 const { Policy, Economy, Sports } = require('../../model/newsModel')
 
-const getElbaladNews = async (url, type) => {
+module.exports = async (url, type) => {
     const response = await fetch(url)
     const body = await response.text()
     const $ = cheerio.load(body)
@@ -11,8 +11,10 @@ const getElbaladNews = async (url, type) => {
         const body = $(el).find('p').text()
         const date = $(el).find('time').text()
         const imageUrl = $(el).find('img').attr('src')
+        if(!$(el).find('a').attr('href')){
+            return;
+        }
         const link = "https://www.elbalad.news/" + $(el).find('a').attr('href')
-
         if (type === 'policy') {
             const newsExit = await Policy.findOne({ link });
             if (!newsExit) {
@@ -78,8 +80,4 @@ const getElbaladDetails = async (url) => {
 
     })
     return { details: details }
-}
-
-module.exports = {
-    getElbaladNews
 }

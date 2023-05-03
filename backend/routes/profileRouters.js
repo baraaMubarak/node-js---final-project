@@ -1,9 +1,9 @@
-const express = require('express')
-const router = express.Router()
-const {protect} = require('../middleware/authMiddle.js')
-const { getUserProfile, editProfile } = require('../controller/profileController')
+const {Router} = require('express')
+const router = Router()
+const {protect} = require('../middleware')
+const {profileController} = require('../controller')
 
-router.get('/getProfile', protect, getUserProfile)
-router.put('/editProfile', protect, editProfile)
+router.get('/getProfile', protect, profileController.getUserProfile)
+router.put('/editProfile', protect, profileController.editProfile)
 
 module.exports = router

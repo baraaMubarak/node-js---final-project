@@ -1,23 +1,15 @@
-const express = require('express')
-const router = express.Router()
-const {protect} = require('../middleware/authMiddle.js')
-const {
-    getPolicy,
-    getEconomy,
-    getHomeNews,
-    getSports,
-    scrapePolicy,
-    scrapeSport,
-    scrapeEconomy
-} = require('../controller/newsController')
+const {Router} = require('express')
+const router = Router()
+const {protect} = require('../middleware')
+const {newsController} = require('../controller')
 
-router.get('/home', getHomeNews)
-router.get('/policy', getPolicy)
-router.get('/economy', getEconomy)
-router.get('/sport', getSports)
+router.get('/home', newsController.getHomeNews)
+router.get('/policy', newsController.getPolicy)
+router.get('/economy', newsController.getEconomy)
+router.get('/sport', newsController.getSports)
 
-router.post('/policy',protect, scrapePolicy)
-router.post('/sport',protect, scrapeSport)
-router.post('/economy',protect, scrapeEconomy)
+router.post('/policy',protect, newsController.scrapePolicy)
+router.post('/sport',protect, newsController.scrapeSport)
+router.post('/economy',protect, newsController.scrapeEconomy)
 
 module.exports = router

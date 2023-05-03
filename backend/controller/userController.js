@@ -1,16 +1,9 @@
 const asyncHandler = require("express-async-handler");
 const { sendEmail } = require('../core_modules/emailVerification')
 const User = require('../model/userModel')
-const {
-    nameValidate,
-    emailValidate,
-    passwordValidate,
-    phoneNumberValidate
-} = require('../core_modules/validation')
+const validation= require('../core_modules/validation')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-
-
 
 
 //@desc    Register new user
@@ -22,26 +15,26 @@ const registerUser = asyncHandler(async (req, res) => {
     const { name, email, password, phone } = req.body;
     let details = {}
     //validate name
-    const nameError = nameValidate(!name ? '' : name);
+    const nameError = validation.nameValidate(!name ? '' : name);
     if (nameError) {
         isError = true
         details.name = nameError;
     }
     //validate email
-    const emailError = emailValidate(!email ? '' : email)
+    const emailError = validation.emailValidate(!email ? '' : email)
     if (emailError) {
         isError = true;
         details.emailError = emailError
     }
     console.log(details);
     //validate password
-    const passwordError = passwordValidate(!password ? '' : password)
+    const passwordError = validation.passwordValidate(!password ? '' : password)
     if (passwordError) {
         isError = true;
         details.password = passwordError
     }
     //validate Phone number
-    const phoneError = phoneNumberValidate(!phone ? '' : phone)
+    const phoneError = validation.phoneNumberValidate(!phone ? '' : phone)
     if (phoneError) {
         isError = true
         details.phone = phoneError
@@ -154,7 +147,7 @@ const loginUser = asyncHandler(async (req, res) => {
         throw new Error("Enter require data")
     }
     //validate email
-    const emailError = emailValidate(!email ? '' : email)
+    const emailError = validation.emailValidate(!email ? '' : email)
     if (emailError) {
         details.emailError = emailError
         res.status(400).json({
