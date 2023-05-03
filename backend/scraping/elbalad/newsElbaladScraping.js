@@ -13,7 +13,7 @@ const getElbaladNews = async (url, type) => {
         const imageUrl = $(el).find('img').attr('src')
         const link = "https://www.elbalad.news/" + $(el).find('a').attr('href')
 
-        if (type == 'policy') {
+        if (type === 'policy') {
             const newsExit = await Policy.findOne({ link });
             if (!newsExit) {
                 await getElbaladDetails(link).then(async (data) => {
@@ -30,7 +30,7 @@ const getElbaladNews = async (url, type) => {
                     })
                 })
             }
-        } else if (type == 'economy') {
+        } else if (type === 'economy') {
             const newsExit = await Economy.findOne({ link });
             if (!newsExit) {
                 await getElbaladDetails(link).then(async (data) => {
@@ -47,7 +47,7 @@ const getElbaladNews = async (url, type) => {
                     })
                 })
             }
-        } else if (type == 'sport') {
+        } else if (type === 'sport') {
             const newsExit = await Sports.findOne({ link });
             if (!newsExit) {
                 await getElbaladDetails(link).then(async (data) => {
@@ -60,7 +60,7 @@ const getElbaladNews = async (url, type) => {
                         Comment: [],
                         author: 'elbalad.news',
                         details: data.details,
-                        economy: 'sport'
+                        type: 'sport'
                     })
                 })
             }

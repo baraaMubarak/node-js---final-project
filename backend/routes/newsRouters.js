@@ -11,10 +11,10 @@ const {
     scrapeEconomy
 } = require('../controller/newsController')
 
+router.get('/home', getHomeNews)
 router.get('/policy', getPolicy)
 router.get('/economy', getEconomy)
 router.get('/sport', getSports)
-router.get('/home', getHomeNews)
 
 router.post('/policy',protect, scrapePolicy)
 router.post('/sport',protect, scrapeSport)

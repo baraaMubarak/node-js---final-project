@@ -1,8 +1,7 @@
 const cheerio = require("cheerio");
-const { translateText } = require("../../translator");
+const translator = require("../../translator");
 const { Policy } = require("../../model/newsModel");
 newsWallaPolicyScraping = async (url) => {
-  console.log('....................---------------------------');
 // console.log( await translateText(`we first`));
   const response = await fetch(url);
   const body = await response.text();
@@ -21,37 +20,35 @@ newsWallaPolicyScraping = async (url) => {
    
     if (!newsExit) {
       await getDetailsNews(link).then(async (data) => {
-        setTimeout(async() => {
-          setTimeout(async()=>{
-            console.log('--------------------------------',await translateText(title));
-          },1000)
-          setTimeout(async()=>{
-            console.log(await translateText(data.textBody));
-          },2000)
-          setTimeout(async()=>{
-            console.log('+++++++++++++++++++++++++++',await translateText(data.details));
-          },3000)
-         
-
-         }, index * 3000); 
-        // await Policy.create({
-        //   title: title,
-        //   body: data.textBody,
-        //   details: data.details,
-        //   date: data.date,
-        //   link: link,
-        //   author: "قناة واللا العبرية",
-        //   image: imageUrl,
-        //   comments: [],
-        //   type:'policy'
-        // });
-        // console.log(news);
+        // console.log('start translate news..')
+        // const t = await translator.translateText(title);
+        // console.log(t)
+        // const tb = await translator.translateText(data.textBody);
+        // console.log(tb)
+        // const d = await translator.translateText(data.details);
+        // console.log(d)
+        // console.log('end translate news....')
+        await Policy.create({
+          title: title,
+          body: data.textBody,
+          details: data.details,
+          date: data.date,
+          link: link,
+          author: "قناة واللا العبرية",
+          image: imageUrl,
+          comments: [],
+          type:'policy'
+        });
+        // console.log('added  news. ...');
       });
     }
     console.log(link);
   });
   // console.log(l);
 };
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 const getDetailsNews = async (url) => {
   const response = await fetch(url);
   const body = await response.text();

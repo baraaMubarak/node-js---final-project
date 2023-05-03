@@ -17,7 +17,7 @@ newsAlbyanEconomyScraping = async(url)=>{
           details: data.details,
           date: data.date,
           link: link,
-          author: "قناة البيانt",
+          author: "قناة البيان",
           image: data.imageUrl,
           comments: [],
           type:'policy'
