@@ -39,7 +39,7 @@ const getDetailsNews = async (url) => {
   const imgUrl =$('.detailsmedia').find('img').attr('src')
   const date =$('.publish-date').find('.published').text()
   const details =$('.articlecontent').find('p').text()
-  const textBody =$('.articlecontent').find('p').first().text()
+  const textBody =$('.articlecontent').find('p').contents().first().text().trim()
   return {
     imgUrl:imgUrl,
     details: details,

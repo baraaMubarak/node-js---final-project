@@ -12,7 +12,10 @@ module.exports = async (url, type) => {
             const body = $(el).find('.gc__body-wrap').text()
             const date = $(el).find('.screen-reader-text').text()
             const imageUrl = 'https://www.aljazeera.net/' + $(el).find('.responsive-image > img').attr('src')
+<<<<<<< HEAD
+=======
 
+>>>>>>> 40a1014809ec7a1f9180b50f97c645ce7eeba20c
             const link = url + $(el).find('.u-clickable-card__link').attr('href')
             if(!link){
                 return;
