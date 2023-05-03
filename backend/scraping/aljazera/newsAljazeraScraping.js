@@ -11,12 +11,7 @@ module.exports = async (url, type) => {
             const title = $(el).find('.gc__title').text()
             const body = $(el).find('.gc__body-wrap').text()
             const date = $(el).find('.screen-reader-text').text()
-<<<<<<< HEAD
-            const imageUrl = url + $(el).find('.gc__image ').attr('src')
-            console.log(imageUrl);
-=======
             const imageUrl = 'https://www.aljazeera.net/' + $(el).find('.responsive-image > img').attr('src')
->>>>>>> 220bd2e2f916c4766f94d270b5b5ca1f8ad36edf
             const link = url + $(el).find('.u-clickable-card__link').attr('href')
             if(!link){
                 return;
