@@ -2,7 +2,7 @@ const cheerio = require("cheerio")
 const { Policy } = require("../../model/newsModel");
 
 module.exports = async(url)=>{
-    const response = await fetch(url)
+    let response = await fetch(url)
     const body = await response.text()
     const $ = cheerio.load(body)
     $('.category .item').map(async(index,el)=>{
@@ -33,7 +33,7 @@ module.exports = async(url)=>{
 
 }
 const getDetailsNews = async (url) => {
-    const response = await fetch(url);
+    let response = await fetch(url);
     const body = await response.text();
     const $ = cheerio.load(body);
     const date = $(".post-details").find(".datetime").text();

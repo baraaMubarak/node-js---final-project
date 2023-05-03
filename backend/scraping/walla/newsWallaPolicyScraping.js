@@ -4,7 +4,7 @@ const { Policy } = require("../../model/newsModel");
 const { models } = require("mongoose");
 module.exports = async (url) => {
 // console.log( await translateText(`we first`));
-  const response = await fetch(url);
+  let response = await fetch(url);
   const body = await response.text();
   const $ = cheerio.load(body);
   $(".category-five-articles-small-item").map(async (index, el) => {
@@ -54,7 +54,7 @@ function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 const getDetailsNews = async (url) => {
-  const response = await fetch(url);
+  let response = await fetch(url);
   const body = await response.text();
   const $ = cheerio.load(body);
   let details;

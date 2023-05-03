@@ -16,7 +16,7 @@ module.exports =  palestineNEWS = async(type) => {
     }
     console.log("Start scraping palestine")
     const websiteLink = "https://www.pbc.ps";
-    const response = await fetch(websiteLink + branch);
+    let response = await fetch(websiteLink + branch);
     const body = await response.text();
     const $ = cheerio.load(body);
     $('.elementor-posts-container > article').map(async (i, el) => {
@@ -26,7 +26,7 @@ module.exports =  palestineNEWS = async(type) => {
         if(!link){
             return;
         }
-        const response2 = await fetch(link)
+        let response2 = await fetch(link)
         const body2 = await response2.text();
         const $2 = cheerio.load(body2)
         let details;

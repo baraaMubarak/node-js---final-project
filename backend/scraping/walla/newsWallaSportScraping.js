@@ -2,7 +2,7 @@ const cheerio = require('cheerio')
 const { Sports } = require('../../model/newsModel')
 
 module.exports = async(url)=>{
-    const response = await fetch(url)
+    let response = await fetch(url)
     const body = await response.text()
     const $ = cheerio.load(body)
 
@@ -35,7 +35,7 @@ module.exports = async(url)=>{
 }
 
 const getDetailsNews = async(url)=>{
-    const response = await fetch(url)
+    let response = await fetch(url)
     const body = await response.text()
     const $ =  cheerio.load(body)
     const details =  $('.entry-content').find('p').text()

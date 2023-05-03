@@ -12,7 +12,7 @@ module.exports =  N12=async(type) =>{
     }
     console.log("Start scraping N12")
     const websiteLink = "https://www.mako.co.il";
-    const response = await fetch(websiteLink + branch);
+    let response = await fetch(websiteLink + branch);
     const body = await response.text();
     const $ = cheerio.load(body);
 
@@ -26,7 +26,7 @@ module.exports =  N12=async(type) =>{
         const date = $(el).find('small').text();
         const imageUrl = $(el).find('img').attr('src');
 
-        const response2 = await fetch(websiteLink + link);
+        let response2 = await fetch(websiteLink + link);
         const body2 = await response2.text();
         const $2 = cheerio.load(body2);
         let details;

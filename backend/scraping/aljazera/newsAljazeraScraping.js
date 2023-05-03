@@ -3,7 +3,7 @@ const { Policy, Economy, Sports } = require('../../model/newsModel')
 
 module.exports = async (url, type) => {
     try {
-        const response = await fetch(url)
+        let response = await fetch(url)
         const body = await response.text()
         const $ = cheerio.load(body)
 
@@ -79,7 +79,7 @@ module.exports = async (url, type) => {
 
 
 const getDetailsNews = async (url) => {
-    const response = await fetch(url);
+    let response = await fetch(url);
     const body = await response.text();
     const $ = cheerio.load(body);
     let details
