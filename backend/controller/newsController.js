@@ -116,13 +116,13 @@ const scrapePolicy = async (req, res) => {
     await newsScraping.alAqsaPolicy('https://seraj.tv/category/6')
     //walla
     await newsScraping.walla.newsWallaPolicyScraping('https://www.maariv.co.il/news/politics')
-
+    // palestine
+    await newsScraping.palestine('policy');
     //aljazera
     await newsScraping.aljazera('https://www.aljazeera.net/politics/', 'policy')
      //elbalad
     await newsScraping.elbalad('https://elbalad.news/category/2', 'policy')
-    // palestine
-    await newsScraping.palestine('policy');
+    
 
     res.send({message: 'success'})
 }

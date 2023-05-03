@@ -12,6 +12,7 @@ module.exports = async (url, type) => {
             const body = $(el).find('.gc__body-wrap').text()
             const date = $(el).find('.screen-reader-text').text()
             const imageUrl = url + $(el).find('.gc__image ').attr('src')
+            console.log(imageUrl);
             const link = url + $(el).find('.u-clickable-card__link').attr('href')
             if(!link){
                 return;
