@@ -6,6 +6,7 @@ module.exports = async (url, type) => {
     const body = await response.text()
     const $ = cheerio.load(body)
 
+
     $('.news-list > .item-li').map(async (i, el) => {
         const title = $(el).find('h3').text()
         const body = $(el).find('p').text()
