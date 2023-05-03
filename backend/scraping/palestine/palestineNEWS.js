@@ -34,8 +34,8 @@ module.exports =  palestineNEWS = async(type) => {
             let body3;
             let date;
             await $2('body').map((i1, el1) => {
-                details = $2(el1).find('.entry-content > p:not(:has(img))').text()
-                body3 = $2(el1).find('.entry-content > p:not(:has(img))').first().text()
+                details = $2(el1).find('.entry-content  p:not(:has(img))').text()
+                body3 = $2(el1).find('.entry-content  p:not(:has(img))').first().text()
                 date = $2(el1).find('.published').text()
                 if (details.includes('<!DOCTYPE html>')) {
                     details = `الصفحة غير موجودة، انظر: ${link}`
