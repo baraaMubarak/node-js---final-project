@@ -46,7 +46,7 @@ module.exports = async (url) => {
         // console.log('added  news. ...');
       });
     }
-    console.log(link);
+    // console.log(link);
   });
   // console.log(l);
 };

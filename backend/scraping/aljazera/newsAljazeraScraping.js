@@ -11,13 +11,17 @@ module.exports = async (url, type) => {
             const title = $(el).find('.gc__title').text()
             const body = $(el).find('.gc__body-wrap').text()
             const date = $(el).find('.screen-reader-text').text()
+<<<<<<< HEAD
             const imageUrl = url + $(el).find('.gc__image ').attr('src')
             console.log(imageUrl);
+=======
+            const imageUrl = 'https://www.aljazeera.net/' + $(el).find('.responsive-image > img').attr('src')
+>>>>>>> 220bd2e2f916c4766f94d270b5b5ca1f8ad36edf
             const link = url + $(el).find('.u-clickable-card__link').attr('href')
             if(!link){
                 return;
             }
-            if (type == 'policy') {
+            if (type === 'policy') {
                 const newsExit = await Policy.findOne({ link });
                 if (!newsExit) {
                     await getDetailsNews(link).then(async (data) => {
@@ -28,13 +32,13 @@ module.exports = async (url, type) => {
                             imageUrl: imageUrl,
                             link: link,
                             Comment: [],
-                            author: 'aljazera.net',
+                            author: 'قناة الجزيرة',
                             details: data.details,
                             type: 'policy'
                         })
                     })
                 }
-            } else if (type == 'economy') {
+            } else if (type === 'economy') {
                 const newsExit = await Economy.findOne({ link });
                 if (!newsExit) {
                     await getDetailsNews(link).then(async (data) => {
@@ -45,13 +49,13 @@ module.exports = async (url, type) => {
                             imageUrl: imageUrl,
                             link: link,
                             Comment: [],
-                            author: 'aljazera.net',
+                            author: 'قناة الجزيرة',
                             details: data.details,
                             type: 'economy'
                         })
                     })
                 }
-            } else if (type == 'sport') {
+            } else if (type === 'sport') {
                 const newsExit = await Sports.findOne({ link });
                 if (!newsExit) {
                     await getDetailsNews(link).then(async (data) => {
@@ -62,7 +66,7 @@ module.exports = async (url, type) => {
                             imageUrl: imageUrl,
                             link: link,
                             Comment: [],
-                            author: 'aljazera.net',
+                            author: 'قناة الجزيرة',
                             details: data.details,
                             economy: 'sport'
                         })
