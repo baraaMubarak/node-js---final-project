@@ -27,7 +27,7 @@ module.exports = async (url, type) => {
                         imageUrl: imageUrl,
                         link: link,
                         Comment: [],
-                        author: 'elbalad.news',
+                        author: 'قناة البلد',
                         details: data.details,
                         type: 'policy'
                     })
@@ -44,7 +44,7 @@ module.exports = async (url, type) => {
                         imageUrl: imageUrl,
                         link: link,
                         Comment: [],
-                        author: 'elbalad.news',
+                        author: 'قناة البلد',
                         details: data.details,
                         type: 'economy'
                     })
@@ -61,7 +61,7 @@ module.exports = async (url, type) => {
                         imageUrl: imageUrl,
                         link: link,
                         Comment: [],
-                        author: 'elbalad.news',
+                        author: 'قناة البلد',
                         details: data.details,
                         type: 'sport'
                     })
