@@ -11,7 +11,7 @@ module.exports = async (url, type) => {
         const title = $(el).find('h3').text()
         const body = $(el).find('p').text()
         const date = $(el).find('time').text()
-        const imageUrl = $(el).find('img').attr('src')
+        const imageUrl = 'elbalad.news' + $(el).find('img').attr('src')
         if(!$(el).find('a').attr('href')){
             return;
         }
