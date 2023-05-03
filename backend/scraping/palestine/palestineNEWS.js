@@ -3,7 +3,6 @@ const {Policy, Sports} = require("../../model/newsModel");
 // const translateText = require('../translator')
 const asyncHandler = require("express-async-handler");
 
-
 module.exports =  palestineNEWS = async(type) => {
    try {
     let branch;
