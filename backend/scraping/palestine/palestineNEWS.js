@@ -23,7 +23,6 @@ module.exports =  palestineNEWS = async(type) => {
         const link = $(el).find('h3 > a' ).attr('href')
         const title = $(el).find('h3 > a' ).text()
         const imageUrl = $(el).find('img' ).attr('src')
-        console.log('---------------------',link);
         if(!link){
             return;
         }
