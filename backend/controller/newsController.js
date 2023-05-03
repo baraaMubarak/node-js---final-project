@@ -9,10 +9,10 @@ const getPolicy = async (req, res) => {
     let news = [];
     // let newsN12 = await Policy.find({author: "newsN12",}).limit(3);
     // let walla = await Policy.find({author: "قناة واللا العبرية",}).limit(3);
-    let aljazera = await Policy.find({author: "aljazera.net",}).limit(3);
+    let aljazera = await Policy.find({author: "قناة الجزيرة",}).limit(3);
     let alaqsa = await Policy.find({author: "قناة الأقصى",}).limit(3);
     let palestine = await Policy.find({author: "قناة فلسطين",}).limit(3);
-    let elbalad = await Policy.find({author: "elbalad.news",}).limit(3);
+    let elbalad = await Policy.find({author: "قناة البلد",}).limit(3);
     // console.log(newsN12)
     for (let i = 0; i < 3; i++) {
         if(aljazera[i])
@@ -34,10 +34,10 @@ const getPolicy = async (req, res) => {
 // @access Public
 const getEconomy = async (req, res) => {
     let news = [];
-    let aljazera = await Economy.find({author: "aljazera.net",}).limit(3);
+    let aljazera = await Economy.find({author: "قناة الجزيرة",}).limit(3);
     let palestine = await Economy.find({author: "قناة فلسطين",}).limit(3);
     let payan = await Economy.find({author: "قناة البيان",}).limit(3);
-    let elbalad = await Economy.find({author: "elbalad.news",}).limit(3);
+    let elbalad = await Economy.find({author: "قناة البلد",}).limit(3);
     // console.log(newsN12)
     for (let i = 0; i < 3; i++) {
         if(aljazera[i])
@@ -60,9 +60,9 @@ const getEconomy = async (req, res) => {
 // @access Public
 const getSports = async (req, res) => {
     let news = [];
-    let aljazera = await Sports.find({author: "aljazera.net",}).limit(5);
+    let aljazera = await Sports.find({author: "قناة الجزيرة",}).limit(5);
     let palestine = await Sports.find({author: "قناة فلسطين",}).limit(5);
-    let elbalad = await Sports.find({author: "elbalad.news",}).limit(3);
+    let elbalad = await Sports.find({author: "قناة البلد",}).limit(3);
     // console.log(newsN12)
     for (let i = 0; i < 5; i++) {
         if(aljazera[i])
@@ -84,11 +84,11 @@ const getHomeNews = async (req, res) => {
     let news = [];
     // let newsN12 = await Sports.find({author: "newsN12",}).limit(3);
     // let walla = await Policy.find({author: "قناة واللا العبرية",}).limit(3);
-    let aljazera = await Policy.find({author: "aljazera.net",}).limit(3);
+    let aljazera = await Policy.find({author: "قناة الجزيرة",}).limit(3);
     let palestine = await Sports.find({author: "قناة فلسطين",}).limit(3);
     let albayan = await Economy.find({author: "قناة البيان",}).limit(3);
     let alaqsa = await Policy.find({author: "قناة الأقصى",}).limit(3);
-    let elbalad = await Sports.find({author: "elbalad.news",}).limit(3);
+    let elbalad = await Sports.find({author: "قناة البلد",}).limit(3);
     // console.log(newsN12)
     for (let i = 0; i < 3; i++) {
         if(aljazera[i])
@@ -112,8 +112,7 @@ const getHomeNews = async (req, res) => {
 const scrapePolicy = async (req, res) => {
     // newsN12
     await newsScraping.newsN12('policy');
-    // al-aqsa
-    await newsScraping.alAqsaPolicy('https://seraj.tv/category/6')
+
     //walla
     await newsScraping.walla.newsWallaPolicyScraping('https://www.maariv.co.il/news/politics')
 
@@ -123,6 +122,9 @@ const scrapePolicy = async (req, res) => {
     await newsScraping.elbalad('https://elbalad.news/category/2', 'policy')
     // palestine
     await newsScraping.palestine('policy');
+
+    // al-aqsa
+    await newsScraping.alAqsaPolicy('https://seraj.tv/category/6')
 
     res.send({message: 'success'})
 }
