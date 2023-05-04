@@ -9,10 +9,8 @@ const bcrypt = require('bcryptjs')
 // @route GET api/profile/getProfile
 // @access Private
 const getUserProfile = asyncHandler(async (req, res) => {
-
     const user = await User.findById(req.user._id)
     if (!user) {
-
         res.status(400).json({
             statusCode: 400,
             message: "User not exists",
@@ -22,7 +20,6 @@ const getUserProfile = asyncHandler(async (req, res) => {
         });
         throw new Error('User not exists')
     }
-
     res.status(200).json({
         _id: user._id,
         name: user.name,
@@ -30,11 +27,6 @@ const getUserProfile = asyncHandler(async (req, res) => {
         phone: user.phone,
         image: user.image
     })
-
-    res.json({ massage: 'User data display' })
-
-
-
 })
 
 // @desc  Update User profile
