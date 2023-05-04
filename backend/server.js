@@ -1,14 +1,13 @@
 const express = require('express')
 const routers = require('./routes')
-const {errorHandler} = require('../backend/middleware')
+const { errorHandler } = require('../backend/middleware')
 const dotenv = require('dotenv').config()
 const connectDB = require('./config/db.js')
 const port = process.env.PORT || 5000
 const app = express()
 
-setTimeout(function () {
-    connectDB()
-}, 5000);
+
+connectDB()
 // newsWallaPolicyScraping('https://www.maariv.co.il/news/politics')
 
 var cors = require('cors');
@@ -16,7 +15,7 @@ app.use(cors());
 
 app.use(express.json())
 app.use('/uploads', express.static('uploads'))
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({ extended: false }))
 
 app.use('/api/users', routers.userRouters)
 app.use('/api/news', routers.newsRouters)
@@ -33,7 +32,7 @@ app.use(errorHandler)
 
 
 app.listen(port, () => console.log(`Server started on port http://localhost:${port}`))
-const {translateText} = require('./translator.js');
+const { translateText } = require('./translator.js');
 
 
 
