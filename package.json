@@ -38,8 +38,5 @@
   },
   "bundleDependencies": [
     "nodemon"
-  ],
-  "bin" : {
-    "execute" : "index.js"
-  }
+  ]
 }
