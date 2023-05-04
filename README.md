@@ -14,6 +14,6 @@ Collecting, translating and republishing news from some reliable websites.
 
 # `BNMA` NEWS
 
-# API Link
+# API Link - for use in postman
 ### https://api.postman.com/collections/22400404-b96e9482-fc01-48b8-80b7-e8a6a26d8c71?access_key=PMAT-01GZ3XAXEYWM0C6WKB0V0AQGF1
 
