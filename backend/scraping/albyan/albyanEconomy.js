@@ -21,7 +21,7 @@ module.exports = async(url)=>{
           date: data.date,
           link: link,
           author: "قناة البيان",
-          image: data.imageUrl,
+          image: data.imgUrl,
           comments: [],
           type:'policy'
         });
