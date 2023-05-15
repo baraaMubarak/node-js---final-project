@@ -81,9 +81,8 @@ const getSports = async (req, res) => {
 // @route api/news/home
 // @access Public
 const getHomeNews = async (req, res) => {
-    let news = [];
-    // let newsN12 = await Sports.find({author: "newsN12",}).limit(3);
-    // let walla = await Policy.find({author: "قناة واللا العبرية",}).limit(3);
+    let policy = [];
+    let sports = [];
     let aljazera = await Policy.find({author: "قناة الجزيرة",}).limit(10);
     let palestine = await Sports.find({author: "قناة فلسطين",}).limit(10);
     let albayan = await Economy.find({author: "قناة البيان",}).limit(10);
@@ -92,18 +91,25 @@ const getHomeNews = async (req, res) => {
     // console.log(newsN12)
     for (let i = 0; i < 10; i++) {
         if(aljazera[i])
-            news.push(aljazera[i])
-        if(palestine[i])
-            news.push(palestine[i])
-        if(albayan[i])
-            news.push(albayan[i])
+            policy.push(aljazera[i])
         if(alaqsa[i])
-            news.push(alaqsa[i])
-        if(elbalad[i])
-            news.push(elbalad[i])
+            policy.push(alaqsa[i])
     }
-    news.sort(() => Math.random() - 0.5);
-    res.status(200).json(news)
+    for (let i = 0; i < 10; i++) {
+        if(palestine[i])
+            sports.push(palestine[i])
+        if(elbalad[i])
+            sports.push(elbalad[i])
+    }
+    policy.sort(() => Math.random() - 0.5);
+    sports.sort(() => Math.random() - 0.5);
+    res.status(200).json({
+
+        sport: sports,
+        politics: policy,
+        economic: albayan
+
+    })
 }
 
 // @desc  Post Scrape Policy NEWS
@@ -119,9 +125,9 @@ const scrapePolicy = async (req, res) => {
     await newsScraping.palestine('policy');
     //aljazera
     await newsScraping.aljazera('https://www.aljazeera.net/politics/', 'policy')
-     //elbalad
+    //elbalad
     await newsScraping.elbalad('https://elbalad.news/category/2', 'policy')
-    
+
 
     // al-aqsa
     await newsScraping.alAqsaPolicy('https://seraj.tv/category/6')
@@ -161,6 +167,64 @@ const scrapeEconomy = async (req, res) => {
     res.send({message: 'success'})
 }
 
+// @desc  GET numbers of NEWS
+// @route api/news/count
+// @access Public
+const numberOfNews = async (req, res) => {
+    let policyCounter = await Policy.count();
+    let economyCounter = await Economy.count();
+    let sportCounter = await Sports.count();
+
+
+    res.status(200).json({
+        sport: sportCounter,
+        politics: policyCounter,
+        economic: economyCounter
+    })
+}
+
+// @desc  GET numbers of NEWS
+// @route api/news/count
+// @access Public
+const recentPosts = async (req, res) => {
+
+    let aljazera = await Policy.find({author: "قناة الجزيرة",}).limit(2);
+    let palestine = await Policy.find({author: "قناة فلسطين",}).limit(2);
+    let alaqsa = await Policy.find({author: "قناة الأقصى",}).limit(2);
+
+
+    res.status(200).json({
+        latestNews: [aljazera[0],palestine[0],alaqsa[0]],
+        popularPosts: [aljazera[1],palestine[1],alaqsa[1]],
+    })
+}
+
+const category = async (req, res) => {
+
+    let aljazeraPolicy = await Policy.find({author: "قناة الجزيرة",}).limit(1);
+    let palestinePolicy = await Policy.find({author: "قناة فلسطين",}).limit(1);
+    let alaqsaPolicy = await Policy.find({author: "قناة الأقصى",}).limit(1);
+    let elbaladPolicy = await Policy.find({author: "قناة البلد",}).limit(1);
+
+    let aljazeraSport = await Sports.find({author: "قناة الجزيرة",}).limit(2);
+    let palestineSport = await Sports.find({author: "قناة فلسطين",}).limit(1);
+    let elbaladSport = await Sports.find({author: "قناة البلد",}).limit(1);
+
+    let aljazeraEconomy = await Economy.find({author: "قناة الجزيرة",}).limit(1);
+    let palestineEconomy = await Economy.find({author: "قناة فلسطين",}).limit(1);
+    let elbaladEconomy = await Economy.find({author: "قناة البلد",}).limit(1);
+    let albayanEconomy = await Economy.find({author: "قناة البيان",}).limit(1);
+
+    res.status(200).json({
+        politics:[aljazeraPolicy[0],palestinePolicy[0],alaqsaPolicy[0],elbaladPolicy[0]],
+        sport:[aljazeraSport[0],palestineSport[0],aljazeraSport[1],elbaladSport[0]],
+        economic:[aljazeraEconomy[0],palestineEconomy[0],albayanEconomy[0],elbaladEconomy[0]],
+    })
+}
+
+
+
+
 module.exports = {
     getPolicy,
     getEconomy,
@@ -168,5 +232,8 @@ module.exports = {
     getHomeNews,
     scrapePolicy,
     scrapeSport,
-    scrapeEconomy
+    scrapeEconomy,
+    numberOfNews,
+    recentPosts,
+    category
 }
