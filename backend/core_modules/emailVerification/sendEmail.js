@@ -5,8 +5,8 @@ module.exports = async (email,code,name)=>{
     let transport = nodemailer.createTransport({
         service:"gmail",
         auth:{
-            user: 'nassemmubarak@gmail.com',
-            pass: 'mtxrgdaqdwhjasbc'
+            user: 'bnmanews@gmail.com',
+            pass: 'gukkxtqiaifgfxtl'
         },
     })
 
@@ -61,7 +61,7 @@ const emailStyle = {
 const emailBody = mailGenerator.generate(emailStyle);
 
     const mailOptions = {
-        from: 'nassemmubarak@gmail.com',
+        from: 'bnmanews@gmail.com',
         to: email,
         subject: 'bnmaNews - Registration Verification Code',
         html: emailBody,
