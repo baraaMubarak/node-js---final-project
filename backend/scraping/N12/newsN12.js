@@ -1,13 +1,13 @@
 const cheerio = require('cheerio');
 // const translateText = require('../translator')
 
-module.exports =  N12=async(type) =>{
+module.exports = N12 = async (type) => {
     let branch;
-    if(type === 'policy'){
+    if (type === 'policy') {
         branch = "/news-politics?partner=NewsNavBar";
-    }else if(type === 'sport'){
+    } else if (type === 'sport') {
         branch = '/news-sport?partner=NewsNavBar'
-    }else{
+    } else {
         return;
     }
     console.log("Start scraping N12")
@@ -15,61 +15,64 @@ module.exports =  N12=async(type) =>{
     let response = await fetch(websiteLink + branch);
     const body = await response.text();
     const $ = cheerio.load(body);
+    try {
+        $('.grid-ordering > li').map(async (i, el) => {
+            var title = $(el).find('a').text();
+            const link = $(el).find('a').attr('href');
+            if (!link) {
+                return;
+            }
+            var body = $(el).find('span > a').text();
+            const date = $(el).find('small').text();
+            const imageUrl = $(el).find('img').attr('src');
 
-    $('.grid-ordering > li').map(async (i, el) => {
-        var title = $(el).find('a').text();
-        const link = $(el).find('a').attr('href');
-        if(!link){
-            return;
-        }
-        var body = $(el).find('span > a').text();
-        const date = $(el).find('small').text();
-        const imageUrl = $(el).find('img').attr('src');
+            let response2 = await fetch(websiteLink + link);
+            const body2 = await response2.text();
+            const $2 = cheerio.load(body2);
+            let details;
+            $2('body').map((i, el) => {
+                title = $(el).find('h1').text();
+                body = $(el).find('h2').text();
+                details = $(el).find('article > section > p:not(:has(script)) ').text();
+            });
 
-        let response2 = await fetch(websiteLink + link);
-        const body2 = await response2.text();
-        const $2 = cheerio.load(body2);
-        let details;
-        $2('body').map((i, el) => {
-            title = $(el).find('h1').text();
-            body = $(el).find('h2').text();
-            details = $(el).find('article > section > p:not(:has(script)) ').text();
+            // console.log('e')
+            // console.log(`-----------------${i}`)
+            // console.log(`Header: ${title}`);
+            // console.log(`Body: ${body}`);
+            // console.log(`Details: ${details}`);
+            // console.log(`Date: ${date}`);
+            // console.log(`Image URL: ${imageUrl}`);
+            // console.log(`Link: ${websiteLink + link}`);
+            const news = {
+                title,
+                body,
+                details,
+                link: websiteLink + link,
+                date,
+                author: "N12",
+                image: imageUrl,
+                type: type
+            }
+
+            if (type === 'policy') {
+                const {Policy} = require('../../model/newsModel');
+                const newsExit = await Policy.findOne({link});
+                if (!newsExit) {
+                    await Policy.create(news);
+                }
+            } else if (type === 'sport') {
+                const {Sports} = require('../../model/newsModel');
+                const newsExit = await Sports.findOne({link});
+                if (!newsExit) {
+                    await Sports.create(news);
+                }
+            }
+
         });
-
-        // console.log('e')
-        // console.log(`-----------------${i}`)
-        // console.log(`Header: ${title}`);
-        // console.log(`Body: ${body}`);
-        // console.log(`Details: ${details}`);
-        // console.log(`Date: ${date}`);
-        // console.log(`Image URL: ${imageUrl}`);
-        // console.log(`Link: ${websiteLink + link}`);
-        const news = {
-            title,
-            body,
-            details,
-            link: websiteLink+ link,
-            date,
-            author: "N12",
-            image: imageUrl,
-            type:type
-        }
-
-        if(type === 'policy') {
-            const {Policy} = require('../../model/newsModel');
-            const newsExit = await Policy.findOne({ link });
-            if(!newsExit) {
-                await Policy.create(news);
-            }
-        }else if(type === 'sport'){
-            const {Sports} = require('../../model/newsModel');
-            const newsExit = await Sports.findOne({ link });
-            if(!newsExit) {
-                await Sports.create(news);
-            }
-        }
-
-    });
+    } catch (e) {
+        console.log(e)
+    }
 }
 
 
