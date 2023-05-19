@@ -28,6 +28,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
 });
 
 const editProfile = asyncHandler(async (req, res) => {
+  console.log(req.user)
   const user = await User.findById(req.user._id);
   if (!user) {
     return res.status(400).json({

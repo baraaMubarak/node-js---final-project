@@ -12,7 +12,8 @@ module.exports = asyncHandler(async (req, res, next) => {
             // verify token
             const decoded = jwt.verify(token, process.env.JWT_SECRET || 'abc123')
             // Get user from token
-            req.user = await User.findById(decoded.id).select('-passwored')
+            req.user = await User.findById(decoded.id)
+            console.log(req.user+' 22 '+decoded.id)
 
             next()
         } catch (error) {
