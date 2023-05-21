@@ -33,17 +33,21 @@ module.exports = async(url)=>{
 
 }
 const getDetailsNews = async (url) => {
-    let response = await fetch(url);
-    const body = await response.text();
-    const $ = cheerio.load(body);
-    const date = $(".post-details").find(".datetime").text();
-    const details = $(".post-text2").find("p").text();
-    const textBody = $(".post-text2").find("p").first().text();
-    console.log(textBody);
-    return {
-      details: details,
-      date: date,
-      textBody: textBody,
-    };
+    try {
+        let response = await fetch(url);
+        const body = await response.text();
+        const $ = cheerio.load(body);
+        const date = $(".post-details").find(".datetime").text();
+        const details = $(".post-text2").find("p").text();
+        const textBody = $(".post-text2").find("p").first().text();
+        console.log(textBody);
+        return {
+            details: details,
+            date: date,
+            textBody: textBody,
+        };
+    }catch (e) {
+        console.log(e)
+    }
   };
   // module.exports = {newsAlAqsaPolicyScraping}

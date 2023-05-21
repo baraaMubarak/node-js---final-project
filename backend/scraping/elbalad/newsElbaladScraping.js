@@ -6,7 +6,7 @@ module.exports = async (url, type) => {
     const body = await response.text()
     const $ = cheerio.load(body)
 
-
+try{
     $('.news-list > .item-li').map(async (i, el) => {
         const title = $(el).find('h3').text()
         const body = $(el).find('p').text()
@@ -28,7 +28,7 @@ module.exports = async (url, type) => {
                         link: link,
                         Comment: [],
                         author: 'قناة البلد',
-                        details: data.details,
+                        details: data.details??'',
                         type: 'policy'
                     })
                 })
@@ -45,7 +45,7 @@ module.exports = async (url, type) => {
                         link: link,
                         Comment: [],
                         author: 'قناة البلد',
-                        details: data.details,
+                        details: data.details??'',
                         type: 'economy'
                     })
                 })
@@ -62,13 +62,18 @@ module.exports = async (url, type) => {
                         link: link,
                         Comment: [],
                         author: 'قناة البلد',
-                        details: data.details,
+                        details: data.details??'',
                         type: 'sport'
                     })
                 })
             }
         }
-    })
+    }
+
+    )
+}catch (e){
+
+}
 }
 
 const getElbaladDetails = async (url) => {
