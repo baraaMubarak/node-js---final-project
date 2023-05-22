@@ -4,6 +4,7 @@ const User = require('../model/userModel')
 const validation= require('../core_modules/validation')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const mongoose = require("mongoose");
 
 
 //@desc    Register new user
@@ -112,7 +113,6 @@ const registerUser = asyncHandler(async (req, res) => {
             statusCode: 200,
             message: "Thank you for registering with bnmaNews! We have sent a verification code to your email. Please enter the code on our website within the next 30 minutes to complete your registration.",
             user: {
-                _id: user.id,
                 name: user.name,
                 email: user.email,
                 phone: user.phone,
@@ -175,7 +175,6 @@ const loginUser = asyncHandler(async (req, res) => {
         throw new Error('password not correct')
     }
     res.status(201).json({
-        _id: user.id,
         name: user.name,
         email: user.email,
         phone: user.phone,
@@ -184,6 +183,149 @@ const loginUser = asyncHandler(async (req, res) => {
         token: generateToken(user._id),
     })
 })
+
+//@desc    Forget password user
+//@route   POST /api/users/forgotPassword
+//@access  Public
+const sendEmailToForget = asyncHandler(async(req,res,next)=>{
+    const email = req.body.email;
+   const emailError =  validation.emailValidate(email)
+    if(emailError){
+        res.status(400).json({
+            statusCode: 400,
+            message: emailError,
+        });
+        throw new Error(emailError)
+    }
+    const userIsExit = await User.findOne({email})
+    // console.log(userIsExit)
+    if(!userIsExit){
+        res.status(400).json({
+            statusCode: 400,
+            message: 'User not found',
+            details: { user: "User not found" },
+        });
+        throw new Error('User not found')
+    }
+    const code = generateVerificationCode();
+    const userUpdate = await User.findByIdAndUpdate(userIsExit._id, {
+        forgetPasswordCode: code,
+    })
+    if (!userUpdate) {
+        res.status(400).json({
+            statusCode: 400,
+            message: "Not successfully Please try again.",
+            details: {
+                message: 'Not successfully Please try again.'
+            },
+        });
+        throw new Error('Not successfully Please try again.')
+    }
+    if (!await sendEmail(email, code, userIsExit.name)) {
+        res.status(400).json({
+            statusCode: 400,
+            message: "Not successful",
+            details: {
+                message: 'Not successful'
+            },
+        });
+        throw new Error('Not successful')
+    }
+    res.status(201).json({
+        message: 'Successfully, sent a verification code to your email'
+    })
+})
+
+//@desc    Chang password user
+//@route   Put /api/users/changePassword
+//@access  Public
+const changePassword = asyncHandler(
+    async (req, res) => {
+        const { code , email ,password } = req.body
+        //check code
+        if (!code) {
+            res.status(400).json({
+                statusCode: 400,
+                message: "Error: enter code.",
+                details: {
+                    message: 'Error: enter code.'
+                },
+            });
+            throw new Error('Error: enter code.')
+        }
+        if (!(Number.isInteger(parseInt(code)) && parseInt(code).toString().length === 4)) {
+            res.status(400).json({
+                statusCode: 400,
+                message: "Error: Code must contain four integers.",
+                details: {
+                    message: 'Error: Code must contain four integers.'
+                },
+            });
+            throw new Error('Error: Code must contain four integers.')
+        }
+        //check email
+        const emailError =  validation.emailValidate(email)
+        if(emailError){
+            res.status(400).json({
+                statusCode: 400,
+                message: emailError,
+            });
+            throw new Error(emailError)
+        }
+        //check password
+        const passwordError =  validation.passwordValidate(password)
+        if(emailError){
+            res.status(400).json({
+                statusCode: 400,
+                message: passwordError,
+            });
+            throw new Error(passwordError)
+        }
+        const userIsExit = await User.findOne({email})
+        if(!userIsExit){
+            res.status(400).json({
+                statusCode: 400,
+                message: 'User not found',
+                details: { user: "User not found" },
+            });
+            throw new Error('User not found')
+        }
+        //hash password
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(password, salt)
+
+        if (!(userIsExit.forgetPasswordCode == code)) {
+            res.status(400).json({
+                statusCode: 400,
+                message: "Your verification code is invalid. Please try again.",
+                details: {
+                    message: 'Your verification code is invalid. Please try again.'
+                },
+            });
+            throw new Error('Your verification code is invalid. Please try again.')
+        }
+        const user = await User.findByIdAndUpdate(userIsExit.id, {
+            password:hashedPassword
+        })
+        if (!user) {
+            res.status(400).json({
+                statusCode: 400,
+                message: "Not successfully Please try again.",
+                details: {
+                    message: 'Not successfully Please try again.'
+                },
+            });
+            throw new Error('Not successfully Please try again.')
+        }
+        res.status(201).json({
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            verifyEmail: true,
+            token: generateToken(user._id),
+        })
+    }
+)
 
 
 
@@ -247,7 +389,6 @@ const emailVerification = asyncHandler(
             throw new Error('Not successfully Please try again.')
         }
         res.status(201).json({
-            _id: user.id,
             name: user.name,
             email: user.email,
             phone: user.phone,
@@ -324,5 +465,7 @@ module.exports = {
     registerUser,
     loginUser,
     emailVerification,
-    reSendEmailVerification
+    reSendEmailVerification,
+    sendEmailToForget,
+    changePassword
 }

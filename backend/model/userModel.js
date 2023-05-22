@@ -27,6 +27,10 @@ const userSchema = mongoose.Schema({
         type: Boolean,
         require: [true, 'Enter verifyEmail'],
     },
+    forgetPasswordCode:{
+        type: String,
+        require: [false, 'Enter code'],
+    },
     image: {
         filename: { type: String },
         contentType: { type: String },

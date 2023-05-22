@@ -5,9 +5,11 @@ const {userController} = require('../controller');
 const {protect} = require('../middleware')
 
 router.post('/signup', userController.registerUser)
-router.post('/login', userController.loginUser)
-router.post('/verifyEmail', protect, userController.emailVerification)
-router.get('/verifyEmail', protect, userController.reSendEmailVerification)
+    .post('/login', userController.loginUser)
+    .post('/verifyEmail', protect, userController.emailVerification)
+    .get('/verifyEmail', protect, userController.reSendEmailVerification)
+    .post('/forgotPassword',userController.sendEmailToForget)
+    .put('/changePassword',userController.changePassword)
 
 
 module.exports = router

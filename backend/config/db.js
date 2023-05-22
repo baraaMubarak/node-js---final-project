@@ -7,7 +7,6 @@ const connectDB = async () => {
         console.log(e)
         process.exit(1)
     }
-
 }
 
 module.exports = connectDB
